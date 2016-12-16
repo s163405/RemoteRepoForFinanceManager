@@ -5,3 +5,5 @@
 /insertServlet.class
 /listServlet.class
 /updateServlet.class
+/loginServlet.class
+/logoutServlet.class
