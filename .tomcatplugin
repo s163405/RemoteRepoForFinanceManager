@@ -7,5 +7,5 @@
     <updateXml>true</updateXml>
     <warLocation></warLocation>
     <extraInfo></extraInfo>
-    <webPath>/ItemManager</webPath>
+    <webPath>/FinanceManager</webPath>
 </tomcatProjectProperties>
