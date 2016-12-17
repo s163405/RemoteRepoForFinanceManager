@@ -2,18 +2,31 @@ package DataBase;
 
 import java.sql.ResultSet;//ResultSetをインポート
 import java.util.LinkedList;//リンクドリストをインポート
+
+import DBSample.INCCat;
 import DBSample.Income; //Incomeクラスをインポート
+import DBSample.UserData;
 
 public class IncomeManager extends DataBaseManager {
 
 	public Object copyRecord(ResultSet rs) throws Exception {
 		Income inc = new Income();
 		inc.setRid(rs.getInt("RID"));
-		inc.setUserRID(rs.getInt("UserRID"));
-		inc.setCategoryRID(rs.getInt("CategoryRID"));
+		int userRid = rs.getInt("UserRID");
+		int categoryRid = rs.getInt("CategoryRID");
 		inc.setDate(rs.getDate("Date"));
 		inc.setAmount(rs.getInt("Amount"));
 		inc.setMemo(rs.getString("Memo"));
+
+		UserDataManager um=new UserDataManager();
+		UserData user=um.get(userRid);
+		inc.setUser(user);
+
+		INCCatManager iCat = new INCCatManager();
+		INCCat categoryName = iCat.getCategory(categoryRid);
+		inc.setCategory(categoryName);
+
+
 		return inc;
 	}
 

@@ -31,6 +31,14 @@ public class INCCatManager extends DataBaseManager {
 
 		return aInc;
 	}
+	public INCCat getCategory(int id) {
+		String sql = "";
+		sql += "select Category from INCCat where RID=";
+		sql += id;
+		INCCat aInc = (INCCat) getRecord(sql); // SQLï∂ëóêM
+
+		return aInc;
+	}
 
 	public LinkedList getINCList() {
 		String sql = "select * from INCCat";

@@ -23,5 +23,14 @@ public class UserDataManager extends DataBaseManager {
 		return aUser;
 	}
 
+	public UserData get(int rid) {
+		String sql = "";
+		sql += "SELECT * FROM UserData WHERE RID="+rid+"";
+		System.out.println(sql);
+		UserData aUser = (UserData) getRecord(sql); // SQL•¶‘—M
+
+		return aUser;
+	}
+
 }
 
