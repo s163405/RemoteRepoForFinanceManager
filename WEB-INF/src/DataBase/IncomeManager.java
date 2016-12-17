@@ -30,25 +30,24 @@ public class IncomeManager extends DataBaseManager {
 		return inc;
 	}
 
-	//
-	// public void insert(Income aInc) {
-	// String sql = "";
-	// sql += "Insert into Income (UserRID, CategoryRID, Date, Amount, Memo)
-	// values (";
-	// sql += "'" + aInc.getUserRID() + "'";
-	// sql += ",";
-	// sql += aInc.getCategoryRID();
-	// sql += ",";
-	// sql += "'" + aInc.getDate() + "'";
-	// sql += ",";
-	// sql += aInc.getAmount();
-	// sql += ",";
-	// sql += aInc.getMemo();
-	// sql += ")";
-	// updateRecord(sql); // SQL文送信
-	//
-	// }
-	//
+
+	 public void insert(Income aInc) {
+	 String sql = "";
+	 sql += "Insert into Income (UserRID, CategoryRID, Date, Amount, Memo) values (";
+	 sql += "'" + aInc.getUser().getRid() + "'";
+	 sql += ",";
+	 sql += aInc.getCategory().getRid();
+	 sql += ",";
+	 sql += "'" + aInc.getDate() + "'";
+	 sql += ",";
+	 sql += aInc.getAmount();
+	 sql += ",";
+	 sql += aInc.getMemo();
+	 sql += ")";
+	 updateRecord(sql); // SQL文送信
+
+	 }
+
 	public Income get(int id) {
 		String sql = "";
 		sql += "select * from Income where RID=";
@@ -69,27 +68,27 @@ public class IncomeManager extends DataBaseManager {
 		String sql = "delete from stockItem where RID=" + id;
 		updateRecord(sql);
 	}
-	//
-	// public void update(Income aInc) {
-	// String sql = "";
-	// sql += "update Income set UserRID=" + "'";
-	// sql += aInc.getUserRID() + "'";
-	// sql += ",";
-	// sql += " CategoryRID=";
-	// sql += aInc.getCategoryRID();
-	// sql += ",";
-	// sql += " Date=" + "'";
-	// sql += aInc.getDate() + "'";
-	// sql += ",";
-	// sql += " Amount=";
-	// sql += aInc.getAmount();
-	// sql += ",";
-	// sql += " Memo=";
-	// sql += aInc.getMemo();
-	// sql += " where RID=";
-	// sql += aInc.getRid();
-	// updateRecord(sql); // SQL文送信
-	//
-	// }
+
+	 public void update(Income aInc,UserData User) {
+	 String sql = "";
+	 sql += "update Income set UserRID=" + "'";
+	 sql += aInc.getUser().getRid() + "'";
+	 sql += ",";
+	 sql += " CategoryRID=";
+	 sql += aInc.getCategory().getRid();
+	 sql += ",";
+	 sql += " Date=" + "'";
+	 sql += aInc.getDate() + "'";
+	 sql += ",";
+	 sql += " Amount=";
+	 sql += aInc.getAmount();
+	 sql += ",";
+	 sql += " Memo=";
+	 sql += aInc.getMemo();
+	 sql += " where RID=";
+	 sql += aInc.getRid();
+	 updateRecord(sql); // SQL文送信
+
+	 }
 
 }
