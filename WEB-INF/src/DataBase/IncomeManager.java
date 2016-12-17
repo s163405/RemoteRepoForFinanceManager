@@ -14,39 +14,43 @@ public class IncomeManager extends DataBaseManager {
 		inc.setRid(rs.getInt("RID"));
 		int userRid = rs.getInt("UserRID");
 		int categoryRid = rs.getInt("CategoryRID");
-		inc.setDate(rs.getDate("Date"));
+		inc.setYear(rs.getInt("Year"));
+		inc.setMonth(rs.getInt("Month"));
+		inc.setDay(rs.getInt("Day"));
 		inc.setAmount(rs.getInt("Amount"));
 		inc.setMemo(rs.getString("Memo"));
 
-		UserDataManager um=new UserDataManager();
-		UserData user=um.get(userRid);
+		UserDataManager um = new UserDataManager();
+		UserData user = um.get(userRid);
 		inc.setUser(user);
 
 		INCCatManager iCat = new INCCatManager();
 		INCCat categoryName = iCat.getCategory(categoryRid);
 		inc.setCategory(categoryName);
 
-
 		return inc;
 	}
 
+	public void insert(Income aInc) {
+		String sql = "";
+		sql += "Insert into Income (UserRID, CategoryRID, Year, Month, Day, Amount, Memo) values (";
+		sql += "'" + aInc.getUser().getRid() + "'";
+		sql += ",";
+		sql += aInc.getCategory().getRid();
+		sql += ",";
+		sql += "'" + aInc.getYear() + "'";
+		sql += ",";
+		sql += "'" + aInc.getMonth() + "'";
+		sql += ",";
+		sql += "'" + aInc.getDay() + "'";
+		sql += ",";
+		sql += aInc.getAmount();
+		sql += ",";
+		sql += aInc.getMemo();
+		sql += ")";
+		updateRecord(sql); // SQL文送信
 
-	 public void insert(Income aInc) {
-	 String sql = "";
-	 sql += "Insert into Income (UserRID, CategoryRID, Date, Amount, Memo) values (";
-	 sql += "'" + aInc.getUser().getRid() + "'";
-	 sql += ",";
-	 sql += aInc.getCategory().getRid();
-	 sql += ",";
-	 sql += "'" + aInc.getDate() + "'";
-	 sql += ",";
-	 sql += aInc.getAmount();
-	 sql += ",";
-	 sql += aInc.getMemo();
-	 sql += ")";
-	 updateRecord(sql); // SQL文送信
-
-	 }
+	}
 
 	public Income get(int id) {
 		String sql = "";
@@ -69,26 +73,32 @@ public class IncomeManager extends DataBaseManager {
 		updateRecord(sql);
 	}
 
-	 public void update(Income aInc,UserData User) {
-	 String sql = "";
-	 sql += "update Income set UserRID=" + "'";
-	 sql += aInc.getUser().getRid() + "'";
-	 sql += ",";
-	 sql += " CategoryRID=";
-	 sql += aInc.getCategory().getRid();
-	 sql += ",";
-	 sql += " Date=" + "'";
-	 sql += aInc.getDate() + "'";
-	 sql += ",";
-	 sql += " Amount=";
-	 sql += aInc.getAmount();
-	 sql += ",";
-	 sql += " Memo=";
-	 sql += aInc.getMemo();
-	 sql += " where RID=";
-	 sql += aInc.getRid();
-	 updateRecord(sql); // SQL文送信
+	public void update(Income aInc, UserData User) {
+		String sql = "";
+		sql += "update Income set UserRID=" + "'";
+		sql += aInc.getUser().getRid() + "'";
+		sql += ",";
+		sql += " CategoryRID=";
+		sql += aInc.getCategory().getRid();
+		sql += ",";
+		sql += " Year=" + "'";
+		sql += aInc.getYear() + "'";
+		sql += ",";
+		sql += " Month=" + "'";
+		sql += aInc.getMonth() + "'";
+		sql += ",";
+		sql += " Day=" + "'";
+		sql += aInc.getDay() + "'";
+		sql += ",";
+		sql += " Amount=";
+		sql += aInc.getAmount();
+		sql += ",";
+		sql += " Memo=";
+		sql += aInc.getMemo();
+		sql += " where RID=";
+		sql += aInc.getRid();
+		updateRecord(sql); // SQL文送信
 
-	 }
+	}
 
 }

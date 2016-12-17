@@ -15,7 +15,9 @@ public class ExpensesManager extends DataBaseManager {
 		exp.setRid(rs.getInt("RID"));
 		int userRid = rs.getInt("UserRID");
 		int categoryRid = rs.getInt("CategoryRID");
-		LocalDateTime datetime= rs.getLocalDateTime("Date");
+		exp.setYear(rs.getInt("Year"));
+		exp.setMonth(rs.getInt("Month"));
+		exp.setDay(rs.getInt("Day"));
 		exp.setAmount(rs.getInt("Amount"));
 		exp.setPlace(rs.getString("Place"));
 		exp.setMemo(rs.getString("Memo"));
@@ -33,12 +35,16 @@ public class ExpensesManager extends DataBaseManager {
 
 	public void insert(Expenses aExp) {
 		String sql = "";
-		sql += "Insert into Income (UserRID, CategoryRID, Date, Amount, Place, Memo) values (";
+		sql += "Insert into Income (UserRID, CategoryRID, Year, Month, Day, Amount, Place, Memo) values (";
 		sql += "'" + aExp.getUser().getRid() + "'";
 		sql += ",";
 		sql += aExp.getCategory().getRid();
 		sql += ",";
-		sql += "'" + aExp.getDate() + "'";
+		sql += "'" + aExp.getYear() + "'";
+		sql += ",";
+		sql += "'" + aExp.getMonth() + "'";
+		sql += ",";
+		sql += "'" + aExp.getDay() + "'";
 		sql += ",";
 		sql += aExp.getAmount();
 		sql += ",";
@@ -80,8 +86,14 @@ public class ExpensesManager extends DataBaseManager {
 		sql += " CategoryRID=";
 		sql += aExp.getCategory().getRid();
 		sql += ",";
-		sql += " Date=" + "'";
-		sql += aExp.getDate() + "'";
+		sql += " Year=" + "'";
+		sql += aExp.getYear() + "'";
+		sql += ",";
+		sql += " Month=" + "'";
+		sql += aExp.getMonth() + "'";
+		sql += ",";
+		sql += " Day=" + "'";
+		sql += aExp.getDay() + "'";
 		sql += ",";
 		sql += " Amount=";
 		sql += aExp.getAmount();
