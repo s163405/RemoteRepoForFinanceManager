@@ -1,6 +1,7 @@
 package DataBase;
 
 import java.sql.ResultSet;//ResultSetをインポート
+import java.time.LocalDateTime;
 import java.util.LinkedList;//リンクドリストをインポート
 
 import DBSample.INCCat;
@@ -14,7 +15,7 @@ public class ExpensesManager extends DataBaseManager {
 		exp.setRid(rs.getInt("RID"));
 		int userRid = rs.getInt("UserRID");
 		int categoryRid = rs.getInt("CategoryRID");
-		exp.setDate(rs.getDate("Date"));
+		LocalDateTime datetime= rs.getLocalDateTime("Date");
 		exp.setAmount(rs.getInt("Amount"));
 		exp.setPlace(rs.getString("Place"));
 		exp.setMemo(rs.getString("Memo"));
