@@ -10,42 +10,74 @@
 %>
 </HEAD>
 <BODY>
-<Div align="center">
-<h1>詳細リスト</h1>
-<hr>
-<h2>2016年12月</h2>
-<br/>
+	<Div align="center">
+		<h1>詳細リスト</h1>
+		<hr>
+		<h2>2016年12月</h2>
+		<br />
 
-<h3>○支出</h3>
-	<TABLE BORDER=1>
-		<tr bgcolor="#c6d9f1" align="center">
-			<th>日付</th>
-			<th>カテゴリ</th>
-			<th>金額</th>
-			<th>場所</th>
-			<th></th>
-		</tr>
-		<%
-			for (int i = 0; i < EXPList.size(); i++) {
-				Expenses exp = (Expenses) EXPList.get(i);
-		%>
-		<tr bgcolor="#fcd5b5">
-			<td><%=exp.getDate()%></td>
-			<td><%=exp.getCategory()%></td>
-			<td><%=exp.getAmount()%></td>
-			<td><%=exp.getPlace()%></td>
-			<td><form method=post action=detailsServlet>
-					<input type=hidden name=RID value=<%=exp.getRid()%>> <input
-						type=submit value=詳細>
-				</form></td>
-		</tr>
-		<%
-			}
-		%>
-	</TABLE>
-	<form method=post action=insertInput.jsp>
-		<input type=submit value=アイテムを新規作成する>
-	</form>
+		<h3>○支出</h3>
+		<TABLE BORDER=1>
+			<tr bgcolor="#c6d9f1" align="center">
+				<th>日付</th>
+				<th>カテゴリ</th>
+				<th>金額</th>
+				<th>場所</th>
+				<th></th>
+			</tr>
+			<%
+				for (int i = 0; i < EXPList.size(); i++) {
+					Expenses exp = (Expenses) EXPList.get(i);
+			%>
+			<tr bgcolor="#fcd5b5">
+				<td><%=exp.getYear() + "/" + exp.getMonth() + "/" + exp.getDay()%></td>
+				<td><%=exp.getCategory()%></td>
+				<td><%=exp.getAmount()%></td>
+				<td><%=exp.getPlace()%></td>
+				<td><form method=post action=detailsServlet>
+				<input type=hidden name="type" value="EXP">
+						<input type=hidden name=RID value=<%=exp.getRid()%>> <input
+							type=submit value=詳細>
+					</form></td>
+			</tr>
+			<%
+				}
+			%>
+		</TABLE>
+		<form method=post action=insertInput.jsp>
+			<input type=submit value=アイテムを新規作成する>
+		</form>
+		<br /> <br />
+		<h3>○支出</h3>
+		<TABLE BORDER=1>
+			<tr bgcolor="#c6d9f1" align="center">
+				<th>日付</th>
+				<th>カテゴリ</th>
+				<th>金額</th>
+				<th>場所</th>
+				<th></th>
+			</tr>
+			<%
+				for (int i = 0; i < INCList.size(); i++) {
+					Income inc = (Income) INCList.get(i);
+			%>
+			<tr bgcolor="#fcd5b5">
+				<td><%=inc.getYear() + "/" + inc.getMonth() + "/" + inc.getDay()%></td>
+				<td><%=inc.getCategory()%></td>
+				<td><%=inc.getAmount()%></td>
+				<td><form method=post action=detailsServlet>
+				<input type=hidden name="RID" value="INC">
+						<input type=hidden name=RID value=<%=inc.getRid()%>> <input
+							type=submit value=詳細>
+					</form></td>
+			</tr>
+			<%
+				}
+			%>
+		</TABLE>
+		<form method=post action=insertInput.jsp>
+			<input type=submit value=アイテムを新規作成する>
+		</form>
 
 	</Div>
 </BODY>

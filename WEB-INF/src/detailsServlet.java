@@ -8,7 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DBSample.Expenses;
+import DBSample.Income;
 import DBSample.Item;
+import DataBase.ExpensesManager;
+import DataBase.IncomeManager;
 import DataBase.ItemManager;
 
 @WebServlet(name = "detailsServlet", urlPatterns = { "/detailsServlet" })
@@ -28,20 +32,30 @@ public class detailsServlet extends HttpServlet {
 		res.setContentType("text/html; charset=UTF-8");
 		HttpSession session = req.getSession();
 		PrintWriter out = res.getWriter();
-		ItemManager im = new ItemManager();
 
-		String rid = req.getParameter("RID");
+		String type = req.getParameter("type");
+		session.setAttribute("type", type);
+		int rid = Integer.parseInt(req.getParameter("RID"));
 
-		int ridInt= Integer.parseInt(rid);
+		if (type == "EXP") {
+			ExpensesManager em = new ExpensesManager();
+			Expenses exp = (Expenses) em.get(rid);
+			session.setAttribute("exp", exp);
+			req.getRequestDispatcher("/details.jsp").forward(req, res);
 
-		Item item = (Item) im.get(ridInt); // sql•¶‚ğ‘—‚Á‚ÄŒ‹‰Ê‚ğæ“¾
-		// out.println(item.getName() + "<br />");
-		// out.println(item.getPrice() + "<br />");
-		// out.println(item.getDetails() + "<br />");
-		// out.println(item.getStock() + "<br />");
+		} else if (type == "INC") {
+			IncomeManager im = new IncomeManager();
+			Income inc = (Income) im.get(rid);
+			session.setAttribute("inc", inc);
+			req.getRequestDispatcher("/details.jsp").forward(req, res);
 
-		session.setAttribute("item", item);
+		} else {
+			System.out.println("detailsServlet.java‚ÅƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½B");
+		}
+		// ItemManager im = new ItemManager();
+		// Item item = (Item) im.get(ridInt); // sql•¶‚ğ‘—‚Á‚ÄŒ‹‰Ê‚ğæ“¾
+		// session.setAttribute("item", item);
+		// req.getRequestDispatcher("/details.jsp").forward(req, res);
 
-		req.getRequestDispatcher("/details.jsp").forward(req, res);
 	}
 }
