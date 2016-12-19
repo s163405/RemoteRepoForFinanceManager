@@ -4,7 +4,7 @@ import java.sql.ResultSet;//ResultSetをインポート
 import java.time.LocalDateTime;
 import java.util.LinkedList;//リンクドリストをインポート
 
-import DBSample.INCCat;
+import DBSample.EXPCat;
 import DBSample.Expenses; //Expensesクラスをインポート
 import DBSample.UserData;
 
@@ -26,16 +26,19 @@ public class ExpensesManager extends DataBaseManager {
 		UserData user = um.get(userRid);
 		exp.setUser(user);
 
-		INCCatManager iCat = new INCCatManager();
-		INCCat categoryName = iCat.getCategory(categoryRid);
-		exp.setCategory(categoryName);
+		EXPCatManager eCat = new EXPCatManager();
+		System.out.println("EXP.categoryRid=" + categoryRid);
+		EXPCat category = eCat.get(categoryRid);
+		String categoryName = category.getCategory();
+		System.out.println(categoryName);
+		exp.setCategory(category);
 
 		return exp;
 	}
 
 	public void insert(Expenses aExp) {
 		String sql = "";
-		sql += "Insert into Income (UserRID, CategoryRID, Year, Month, Day, Amount, Place, Memo) values (";
+		sql += "Insert into Expenses (UserRID, CategoryRID, Year, Month, Day, Amount, Place, Memo) values (";
 		sql += "'" + aExp.getUser().getRid() + "'";
 		sql += ",";
 		sql += aExp.getCategory().getRid();
@@ -80,7 +83,7 @@ public class ExpensesManager extends DataBaseManager {
 	public void update(Expenses aExp) {
 
 		String sql = "";
-		sql += "update Income set UserRID=" + "'";
+		sql += "update Expenses set UserRID=" + "'";
 		sql += aExp.getUser().getRid() + "'";
 		sql += ",";
 		sql += " CategoryRID=";

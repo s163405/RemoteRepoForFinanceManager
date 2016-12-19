@@ -3,7 +3,7 @@ package DBSample;
 public class Expenses {
 	private int rid; // RIDを保存
 	private UserData user;// userを保存
-	private INCCat category;// 収入カテゴリを保存
+	private EXPCat category;// 収入カテゴリを保存
 	private int year;// 年
 	private int month;// 月
 	private int day;// 日
@@ -27,11 +27,11 @@ public class Expenses {
 		this.user = user;
 	}
 
-	public INCCat getCategory() {
+	public EXPCat getCategory() {
 		return category;
 	}
 
-	public void setCategory(INCCat category) {
+	public void setCategory(EXPCat category) {
 		this.category = category;
 	}
 

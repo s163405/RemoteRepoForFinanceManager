@@ -34,28 +34,24 @@ public class detailsServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 
 		String type = req.getParameter("type");
-		session.setAttribute("type", type);
+		System.out.println(type);
 		int rid = Integer.parseInt(req.getParameter("RID"));
 
-		if (type == "EXP") {
+		if (type.equals("EXP")) {
 			ExpensesManager em = new ExpensesManager();
 			Expenses exp = (Expenses) em.get(rid);
 			session.setAttribute("exp", exp);
-			req.getRequestDispatcher("/details.jsp").forward(req, res);
+			req.getRequestDispatcher("/expensesDetails.jsp").forward(req, res);
 
-		} else if (type == "INC") {
+		} else if (type.equals("INC")) {
 			IncomeManager im = new IncomeManager();
 			Income inc = (Income) im.get(rid);
 			session.setAttribute("inc", inc);
-			req.getRequestDispatcher("/details.jsp").forward(req, res);
+			req.getRequestDispatcher("/incomeDetails.jsp").forward(req, res);
 
 		} else {
 			System.out.println("detailsServlet.java‚ÅƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½B");
 		}
-		// ItemManager im = new ItemManager();
-		// Item item = (Item) im.get(ridInt); // sql•¶‚ğ‘—‚Á‚ÄŒ‹‰Ê‚ğæ“¾
-		// session.setAttribute("item", item);
-		// req.getRequestDispatcher("/details.jsp").forward(req, res);
 
 	}
 }

@@ -2,47 +2,41 @@
 <%@ page session="true"%>
 <%@ page import="DBSample.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.text.NumberFormat"%>
 <HTML>
 <HEAD>
+
 <%
-	Item item = (Item) session.getAttribute("item");
+	Income inc = (Income) session.getAttribute("inc");
+
+	session.removeAttribute("type");
+
+	NumberFormat toYen = NumberFormat.getCurrencyInstance(); //通貨形式
 %>
 </HEAD>
 <BODY>
 	<div align="center">
+		<h1>収入の詳細情報</h1>
+		<hr>
 		<table border="1" bordercolor="black">
-			<p>アイテムの詳細情報</p>
-
 			<tr>
-				<td bgcolor="#92d050" align="center" width=80>名前</td>
-				<td bgcolor="#fcd5b5" align="left" width=400>
-					<%
-						out.print(item.getName());
-					%>
+				<td bgcolor="#92d050" align="center" width=80>日付</td>
+				<td bgcolor="#fcd5b5" align="left" width=400><%=inc.getYear() + "/" + inc.getMonth() + "/" + inc.getDay()%>
 				</td>
 			</tr>
 			<tr>
-				<td bgcolor="#92d050" align="center" width=80>値段</td>
-				<td bgcolor="#fcd5b5" align="left" width=400>
-					<%
-						out.print(item.getPrice());
-					%>
+				<td bgcolor="#92d050" align="center" width=80>カテゴリ</td>
+				<td bgcolor="#fcd5b5" align="left" width=400><%=inc.getCategory().getCategory()%>
 				</td>
 			</tr>
 			<tr>
-				<td bgcolor="#92d050" align="center" width=80>詳細</td>
-				<td bgcolor="#fcd5b5" align="left" width=400>
-					<%
-						out.print(item.getDetails());
-					%>
+				<td bgcolor="#92d050" align="center" width=80>金額</td>
+				<td bgcolor="#fcd5b5" align="left" width=400><%=toYen.format(inc.getAmount())%>
 				</td>
 			</tr>
 			<tr>
-				<td bgcolor="#92d050" align="center" width=80>在庫</td>
-				<td bgcolor="#fcd5b5" align="left" width=400>
-					<%
-						out.print(item.getStock());
-					%>
+				<td bgcolor="#92d050" align="center" width=80>メモ</td>
+				<td bgcolor="#fcd5b5" align="left" width=400><%=inc.getMemo()%>
 				</td>
 			</tr>
 		</table>
@@ -63,6 +57,7 @@
 				<td></td>
 			</tr>
 		</table>
+
 	</div>
 </BODY>
 </HTML>

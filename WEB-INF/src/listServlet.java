@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DBSample.Expenses;
+import DBSample.Income;
 import DataBase.ExpensesManager;
 import DataBase.IncomeManager;
-
 
 @WebServlet(name = "listServlet", urlPatterns = { "/listServlet" })
 
@@ -31,21 +32,24 @@ public class listServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		HttpSession session = req.getSession();
 
-//		ItemManager im = new ItemManager();
-//
-//		LinkedList itemList = im.getList();
-//		session.setAttribute("ItemList", itemList);
-//
-//		req.getRequestDispatcher("/list.jsp").forward(req, res);
+		// ItemManager im = new ItemManager();
+		//
+		// LinkedList itemList = im.getList();
+		// session.setAttribute("ItemList", itemList);
+		//
+		// req.getRequestDispatcher("/list.jsp").forward(req, res);
 
 		ExpensesManager em = new ExpensesManager();
 
-		LinkedList EXPList = em.getEXPList();
+			LinkedList EXPList = em.getEXPList();
+
 		session.setAttribute("EXPList", EXPList);
 
 		IncomeManager im = new IncomeManager();
 
 		LinkedList INCList = im.getINCList();
+
+
 		session.setAttribute("INCList", INCList);
 
 		req.getRequestDispatcher("/list.jsp").forward(req, res);

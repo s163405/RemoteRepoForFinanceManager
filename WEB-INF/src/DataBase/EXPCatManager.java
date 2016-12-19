@@ -25,15 +25,7 @@ public class EXPCatManager extends DataBaseManager {
 
 	public EXPCat get(int id) {
 		String sql = "";
-		sql += "select * from INCCat where RID=";
-		sql += id;
-		EXPCat aExp = (EXPCat) getRecord(sql); // SQLï∂ëóêM
-
-		return aExp;
-	}
-	public EXPCat getCategory(int id) {
-		String sql = "";
-		sql += "select Category from INCCat where RID=";
+		sql += "select * from EXPCat where RID=";
 		sql += id;
 		EXPCat aExp = (EXPCat) getRecord(sql); // SQLï∂ëóêM
 
@@ -41,7 +33,7 @@ public class EXPCatManager extends DataBaseManager {
 	}
 
 	public LinkedList getEXPList() {
-		String sql = "select * from INCCat";
+		String sql = "select * from EXPCat";
 		LinkedList EXPCatList = getRecords(sql);
 
 		return EXPCatList;

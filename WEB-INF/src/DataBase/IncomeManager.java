@@ -25,8 +25,10 @@ public class IncomeManager extends DataBaseManager {
 		inc.setUser(user);
 
 		INCCatManager iCat = new INCCatManager();
-		INCCat categoryName = iCat.getCategory(categoryRid);
-		inc.setCategory(categoryName);
+		INCCat category = iCat.get(categoryRid);
+		String categoryName = category.getCategory();
+		System.out.println(categoryName);
+		inc.setCategory(category);
 
 		return inc;
 	}
@@ -62,7 +64,7 @@ public class IncomeManager extends DataBaseManager {
 	}
 
 	public LinkedList getINCList() {
-		String sql = "select * from Imcome";
+		String sql = "select * from Income";
 		LinkedList INCList = getRecords(sql);
 
 		return INCList;
