@@ -75,6 +75,13 @@ public class ExpensesManager extends DataBaseManager {
 		return EXPList;
 	}
 
+	public LinkedList getEXPList(int year,int month) {
+		String sql = "select * from Expenses where Year="+year+"AND Month="+month;
+		LinkedList EXPList = getRecords(sql);
+
+		return EXPList;
+	}
+
 	public void delete(int id) {
 		String sql = "delete from Expenses where RID=" + id;
 		updateRecord(sql);

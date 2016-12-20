@@ -70,6 +70,13 @@ public class IncomeManager extends DataBaseManager {
 		return INCList;
 	}
 
+	public LinkedList getINCList(int year, int month) {
+		String sql = "select * from Income where Year="+year+" AND Month="+month;
+		LinkedList INCList = getRecords(sql);
+
+		return INCList;
+	}
+
 	public void delete(int id) {
 		String sql = "delete from stockItem where RID=" + id;
 		updateRecord(sql);

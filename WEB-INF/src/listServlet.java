@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -32,23 +33,26 @@ public class listServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		HttpSession session = req.getSession();
 
-		// ItemManager im = new ItemManager();
-		//
-		// LinkedList itemList = im.getList();
-		// session.setAttribute("ItemList", itemList);
-		//
-		// req.getRequestDispatcher("/list.jsp").forward(req, res);
+		String yearMonth = "";
+		yearMonth = (String) req.getParameter("month");
+		if (yearMonth == null) {
+			Calendar calendar = Calendar.getInstance();// ”NŒØ‚è‘Ö‚¦
+			req.setAttribute("month", calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1));
+		}
+
+		String[] YM = yearMonth.split("-", 0);// 2016-12‚ğ2016‚Æ12‚É•ª‚¯‚é
+		int year = Integer.parseInt(YM[0]);
+		int month = Integer.parseInt(YM[1]);
 
 		ExpensesManager em = new ExpensesManager();
 
-			LinkedList EXPList = em.getEXPList();
+		LinkedList EXPList = em.getEXPList(year, month);
 
 		session.setAttribute("EXPList", EXPList);
 
 		IncomeManager im = new IncomeManager();
 
-		LinkedList INCList = im.getINCList();
-
+		LinkedList INCList = im.getINCList(year, month);
 
 		session.setAttribute("INCList", INCList);
 

@@ -7,6 +7,7 @@
 <HEAD>
 <%
 	NumberFormat toYen = NumberFormat.getCurrencyInstance(); //通貨形式
+	Calendar calendar = Calendar.getInstance();//年月切り替え
 	LinkedList EXPList = (LinkedList) session.getAttribute("EXPList");
 	LinkedList INCList = (LinkedList) session.getAttribute("INCList");
 %>
@@ -44,19 +45,27 @@
 		<h1>履歴リスト</h1>
 		<hr>
 		<h2>2016年12月</h2>
+		<p>
+		<form action="listServlet" method="post">
+			<label>他の年月を表示:<input type="month" name="month"
+				value="<%=(calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH)+1))%>"></label>
+			<input type="submit" value="送信">
+		</form>
+		</p>
+
 		<br />
 
 		<h3>○支出</h3>
 		<TABLE id="EXPTable" class="tablesorter">
-			<thread>
-			<tr bgcolor="#c6d9f1" align="center">
-				<th>日付</th>
-				<th>カテゴリ</th>
-				<th>金額</th>
-				<th>場所</th>
-				<th></th>
-			</tr>
-			</thread>
+			<thead>
+				<tr bgcolor="#c6d9f1" align="center">
+					<th>日付</th>
+					<th>カテゴリ</th>
+					<th>金額</th>
+					<th>場所</th>
+					<th></th>
+				</tr>
+			</thead>
 			<tbody>
 				<%
 					for (int i = 0; i < EXPList.size(); i++) {
@@ -67,7 +76,7 @@
 					<td><%=exp.getCategory().getCategory()%></td>
 					<td><%=toYen.format(exp.getAmount())%></td>
 					<td><%=exp.getPlace()%></td>
-					<td><form method=post action=detailsServlet>
+					<td  width="30px"><form method=post action=detailsServlet>
 							<input type=hidden name=type value=EXP> <input
 								type=hidden name=RID value=<%=exp.getRid()%>> <input
 								type=submit value=詳細>
@@ -101,7 +110,7 @@
 					<td><%=inc.getYear() + "/" + inc.getMonth() + "/" + inc.getDay()%></td>
 					<td><%=inc.getCategory().getCategory()%></td>
 					<td><%=toYen.format(inc.getAmount())%></td>
-					<td><form method=post action=detailsServlet>
+					<td width="30px"><form method=post action=detailsServlet>
 							<input type=hidden name=type value=INC> <input
 								type=hidden name=RID value=<%=inc.getRid()%>> <input
 								type=submit value=詳細>

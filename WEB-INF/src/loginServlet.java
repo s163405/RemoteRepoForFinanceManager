@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,7 +42,7 @@ public class loginServlet extends HttpServlet {
 		}else{
 			session.setAttribute("user", user);
 			System.out.println("ユーザログイン：成功");
-			//req.getRequestDispatcher("./listServlet").forward(req, res);
+			req.getRequestDispatcher("./listServlet").forward(req, res);
 
 		}
 
