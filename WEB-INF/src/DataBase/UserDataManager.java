@@ -17,7 +17,6 @@ public class UserDataManager extends DataBaseManager {
 	public UserData get(String id,String pw) {
 		String sql = "";
 		sql += "SELECT * FROM UserData WHERE UserID='"+id+"' AND PassWord='"+pw+"'";
-		System.out.println(sql);
 		UserData aUser = (UserData) getRecord(sql); // SQL•¶‘—M
 
 		return aUser;
@@ -26,7 +25,6 @@ public class UserDataManager extends DataBaseManager {
 	public UserData get(int rid) {
 		String sql = "";
 		sql += "SELECT * FROM UserData WHERE RID="+rid;
-		System.out.println(sql);
 		UserData aUser = (UserData) getRecord(sql); // SQL•¶‘—M
 
 		return aUser;

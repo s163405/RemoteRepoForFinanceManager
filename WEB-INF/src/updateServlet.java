@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import DBSample.Item;
-import DataBase.ItemManager;
+import DBSample.*;
+import DataBase.*;
 
 @WebServlet(name = "updateServlet", urlPatterns = { "/updateServlet" })
 
@@ -27,14 +27,24 @@ public class updateServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = res.getWriter();
-
-
 		HttpSession session = req.getSession();
 
-		Item aItem = (Item) session.getAttribute("item");
-		ItemManager im = new ItemManager();
+		String type = (String) session.getAttribute("type");
+		if (type == null) {
+			req.getRequestDispatcher("/listServlet").forward(req, res);
+		}
 
-		im.update(aItem);
+		if (type.equals("EXP")) {
+			Expenses exp = (Expenses) session.getAttribute("exp");
+			ExpensesManager em = new ExpensesManager();
+
+			em.update(exp);
+		} else if(type.equals("INC")){
+			Income inc = (Income) session.getAttribute("inc");
+			IncomeManager im = new IncomeManager();
+
+			im.update(inc);
+		}
 
 		req.getRequestDispatcher("./listServlet").forward(req, res);
 
