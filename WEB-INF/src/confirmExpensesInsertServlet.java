@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,9 +11,9 @@ import javax.servlet.http.HttpSession;
 import DBSample.*;
 import DataBase.*;
 
-@WebServlet(name = "confirmExpensesUpdateServlet", urlPatterns = { "/confirmExpensesUpdateServlet" })
+@WebServlet(name = "confirmExpensesInsertServlet", urlPatterns = { "/confirmExpensesInsertServlet" })
 
-public class confirmExpensesUpdateServlet extends HttpServlet {
+public class confirmExpensesInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doMain(req, res);
 	}
@@ -29,9 +28,10 @@ public class confirmExpensesUpdateServlet extends HttpServlet {
 		res.setContentType("text/html; charset=UTF-8");
 		HttpSession session = req.getSession();
 		PrintWriter out = res.getWriter();
-		ExpensesManager em = new ExpensesManager();
 
-		Expenses exp = (Expenses) session.getAttribute("exp");
+		IncomeManager em = new IncomeManager();
+
+		Income inc = (Income) session.getAttribute("inc");
 		String yearMonthDay = (String) req.getParameter("date");
 		System.out.println(yearMonthDay);
 
@@ -40,20 +40,19 @@ public class confirmExpensesUpdateServlet extends HttpServlet {
 		int month = Integer.parseInt(ymd[1]);
 		int day = Integer.parseInt(ymd[2]);
 
-		EXPCatManager ecm = new EXPCatManager();
-		EXPCat expCat = ecm.get((int) Integer.parseInt(req.getParameter("category")));
+		INCCatManager icm = new INCCatManager();
+		INCCat incCat = icm.get((int) Integer.parseInt(req.getParameter("category")));
 
-		exp.setUser((UserData) session.getAttribute("user"));
-		exp.setYear(year);
-		exp.setMonth(month);
-		exp.setDay(day);
-		exp.setCategory(expCat);
-		exp.setAmount(Integer.parseInt(req.getParameter("amount")));
-		exp.setPlace((String) req.getParameter("place"));
-		exp.setMemo((String) req.getParameter("memo"));
+		inc.setUser((UserData) session.getAttribute("user"));
+		inc.setYear(year);
+		inc.setMonth(month);
+		inc.setDay(day);
+		inc.setCategory(incCat);
+		inc.setAmount(Integer.parseInt(req.getParameter("amount")));
+		inc.setMemo((String) req.getParameter("memo"));
 
-		session.setAttribute("exp", exp);
+		session.setAttribute("inc", inc);
 
-		req.getRequestDispatcher("/confirmExpensesUpdate.jsp").forward(req, res);
+		req.getRequestDispatcher("/confirmExpensesInsert.jsp").forward(req, res);
 	}
 }

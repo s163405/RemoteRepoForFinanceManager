@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,11 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DBSample.*;
+
 import DataBase.*;
 
-@WebServlet(name = "confirmExpensesUpdateServlet", urlPatterns = { "/confirmExpensesUpdateServlet" })
+@WebServlet(name = "confirmExpensesInsertServlet", urlPatterns = { "/confirmExpensesInsertServlet" })
 
-public class confirmExpensesUpdateServlet extends HttpServlet {
+public class confirmIncomeInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doMain(req, res);
 	}
@@ -29,6 +29,7 @@ public class confirmExpensesUpdateServlet extends HttpServlet {
 		res.setContentType("text/html; charset=UTF-8");
 		HttpSession session = req.getSession();
 		PrintWriter out = res.getWriter();
+
 		ExpensesManager em = new ExpensesManager();
 
 		Expenses exp = (Expenses) session.getAttribute("exp");
@@ -54,6 +55,6 @@ public class confirmExpensesUpdateServlet extends HttpServlet {
 
 		session.setAttribute("exp", exp);
 
-		req.getRequestDispatcher("/confirmExpensesUpdate.jsp").forward(req, res);
+		req.getRequestDispatcher("/confirmIncomeInsert.jsp").forward(req, res);
 	}
 }
