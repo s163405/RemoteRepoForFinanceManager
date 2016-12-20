@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Calendar;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -11,13 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DBSample.Expenses;
-import DBSample.Income;
 import DataBase.ExpensesManager;
-import DataBase.IncomeManager;
 
-@WebServlet(name = "listServlet", urlPatterns = { "/listServlet" })
+@WebServlet(name = "deleteExpensesServlet", urlPatterns = { "/deleteExpensesServlet" })
 
-public class listServlet extends HttpServlet {
+public class deleteExpensesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doMain(req, res);
 	}
@@ -33,30 +30,13 @@ public class listServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		HttpSession session = req.getSession();
 
-		String yearMonth = "";
-		yearMonth = (String) req.getParameter("month");
-		if (yearMonth == null) {
-			Calendar calendar = Calendar.getInstance();// îNåéêÿÇËë÷Ç¶
-			yearMonth = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1);
-		}
-
-		String[] YM = yearMonth.split("-", 0);// 2016-12Ç2016Ç∆12Ç…ï™ÇØÇÈ
-		int year = Integer.parseInt(YM[0]);
-		int month = Integer.parseInt(YM[1]);
-
 		ExpensesManager em = new ExpensesManager();
 
-		LinkedList EXPList = em.getEXPList(year, month);
+		Expenses exp= (Expenses) session.getAttribute("exp");
 
-		session.setAttribute("EXPList", EXPList);
+		em.delete(exp.getRid());
 
-		IncomeManager im = new IncomeManager();
-
-		LinkedList INCList = im.getINCList(year, month);
-
-		session.setAttribute("INCList", INCList);
-
-		req.getRequestDispatcher("/list.jsp").forward(req, res);
+		req.getRequestDispatcher("./listServlet").forward(req, res);
 
 	}
 }
