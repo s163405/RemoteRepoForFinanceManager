@@ -1,22 +1,23 @@
-<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page session="true"%>
 <%@ page import="DBSample.*"%>
-<%@ page import="java.util.*"%>
 <%@ page import="java.text.NumberFormat"%>
-<HTML>
-<HEAD>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
 
 <%
 	Expenses exp = (Expenses) session.getAttribute("exp");
-
-	session.removeAttribute("type");
-
 	NumberFormat toYen = NumberFormat.getCurrencyInstance(); //通貨形式
 %>
-</HEAD>
-<BODY>
+
+</head>
+<body>
+
 	<div align="center">
-		<h1>支出の詳細情報</h1>
+		<h1 align="center">支出情報の削除</h1>
+
 		<hr>
 		<table border="1" bordercolor="black">
 			<tr>
@@ -45,24 +46,28 @@
 				</td>
 			</tr>
 		</table>
-		<br />
-		<table align="0">
+
+
+		</table>
+		<p>この情報を削除します。よろしいですか？</p>
+
+		<table>
 			<tr>
-				<td><form method=post action=update.jsp>
-						<input type=submit value=このアイテムの情報を修正する>
-					</form></td>
-				<td><form method=post action=confirmExpensesDelete.jsp>
-						<input type=submit value=このアイテムを削除する>
-					</form></td>
-			</tr>
-			<tr>
-				<td><form method=post action=listServlet>
-						<input type=submit value=一覧に戻る>
-					</form></td>
-				<td></td>
+				<td><FORM METHOD="POST" ACTION="deleteExpensesServlet">
+						<INPUT TYPE="SUBMIT" VALUE="はい" />
+					</FORM></td>
+				<td>
+					<FORM METHOD="POST" ACTION="expensesDetails.jsp">
+						<INPUT TYPE="SUBMIT" VALUE="いいえ" />
+
+					</FORM>
+				</td>
 			</tr>
 		</table>
 
+
+
 	</div>
-</BODY>
-</HTML>
+
+</body>
+</html>

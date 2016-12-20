@@ -78,11 +78,11 @@ public class IncomeManager extends DataBaseManager {
 	}
 
 	public void delete(int id) {
-		String sql = "delete from stockItem where RID=" + id;
+		String sql = "delete from Income where RID=" + id;
 		updateRecord(sql);
 	}
 
-	public void update(Income aInc, UserData User) {
+	public void update(Income aInc) {
 		String sql = "";
 		sql += "update Income set UserRID=" + "'";
 		sql += aInc.getUser().getRid() + "'";

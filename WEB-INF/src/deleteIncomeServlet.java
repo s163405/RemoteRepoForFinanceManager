@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import DBSample.Item;
-import DataBase.ItemManager;
+import DBSample.Income;
+import DataBase.IncomeManager;
 
-@WebServlet(name = "deleteServlet", urlPatterns = { "/deleteServlet" })
+@WebServlet(name = "deleteIncomeServlet", urlPatterns = { "/deleteIncomeServlet" })
 
-public class deleteServlet extends HttpServlet {
+public class deleteIncomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doMain(req, res);
 	}
@@ -30,11 +30,11 @@ public class deleteServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		HttpSession session = req.getSession();
 
-		ItemManager im = new ItemManager();
+		IncomeManager im = new IncomeManager();
 
-		Item item= (Item) session.getAttribute("item");
+		Income inc= (Income) session.getAttribute("inc");
 
-		im.delete(item.getRid());
+		im.delete(inc.getRid());
 
 		req.getRequestDispatcher("./listServlet").forward(req, res);
 
