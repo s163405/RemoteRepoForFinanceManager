@@ -34,7 +34,7 @@ public class detailsServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 
 		String type = req.getParameter("type");
-		System.out.println(type);
+		session.setAttribute("type", type);
 		int rid = Integer.parseInt(req.getParameter("RID"));
 
 		if (type.equals("EXP")) {

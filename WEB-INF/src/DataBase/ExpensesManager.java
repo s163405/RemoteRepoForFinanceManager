@@ -108,12 +108,12 @@ public class ExpensesManager extends DataBaseManager {
 		sql += " Amount=";
 		sql += aExp.getAmount();
 		sql += ",";
-		sql += " Place=";
+		sql += " Place='";
 		sql += aExp.getPlace();
-		sql += ",";
-		sql += " Memo=";
+		sql += "',";
+		sql += " Memo='";
 		sql += aExp.getMemo();
-		sql += " where RID=";
+		sql += "' where RID=";
 		sql += aExp.getRid();
 		updateRecord(sql); // SQLï∂ëóêM
 

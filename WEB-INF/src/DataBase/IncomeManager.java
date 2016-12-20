@@ -102,9 +102,9 @@ public class IncomeManager extends DataBaseManager {
 		sql += " Amount=";
 		sql += aInc.getAmount();
 		sql += ",";
-		sql += " Memo=";
+		sql += " Memo='";
 		sql += aInc.getMemo();
-		sql += " where RID=";
+		sql += "' where RID=";
 		sql += aInc.getRid();
 		updateRecord(sql); // SQLï∂ëóêM
 

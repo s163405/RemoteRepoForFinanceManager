@@ -22,7 +22,7 @@
 		<table border="1" bordercolor="black">
 			<tr>
 				<td bgcolor="#92d050" align="center" width=80>日付</td>
-				<td bgcolor="#fcd5b5" align="left" width=400><%=exp.getYear() + "/" + exp.getMonth() + "/" + exp.getDay()%>
+				<td bgcolor="#fcd5b5" align="left" width=400><%=exp.getYear() + "/" + String.format("%02d", exp.getMonth()) + "/" + String.format("%02d", exp.getDay())%>
 				</td>
 			</tr>
 			<tr>

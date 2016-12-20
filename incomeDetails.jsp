@@ -8,9 +8,6 @@
 
 <%
 	Income inc = (Income) session.getAttribute("inc");
-
-	session.removeAttribute("type");
-
 	NumberFormat toYen = NumberFormat.getCurrencyInstance(); //通貨形式
 %>
 </HEAD>
@@ -21,7 +18,7 @@
 		<table border="1" bordercolor="black">
 			<tr>
 				<td bgcolor="#92d050" align="center" width=80>日付</td>
-				<td bgcolor="#fcd5b5" align="left" width=400><%=inc.getYear() + "/" + inc.getMonth() + "/" + inc.getDay()%>
+				<td bgcolor="#fcd5b5" align="left" width=400><%=inc.getYear() + "/" + String.format("%02d", inc.getMonth()) + "/" + String.format("%02d", inc.getDay())%>
 				</td>
 			</tr>
 			<tr>
@@ -43,7 +40,7 @@
 		<br />
 		<table align="0">
 			<tr>
-				<td><form method=post action=update.jsp>
+				<td><form method=post action=updatePreperationServlet>
 						<input type=submit value=このアイテムの情報を修正する>
 					</form></td>
 				<td><form method=post action=confirmIncomeDelete.jsp>

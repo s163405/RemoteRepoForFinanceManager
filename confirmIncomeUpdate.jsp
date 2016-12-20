@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page session="true"%>
 <%@ page import="DBSample.*"%>
+<%@ page import="java.util.*"%>
 <%@ page import="java.text.NumberFormat"%>
 <!DOCTYPE html>
 <html lang="ja">
@@ -8,18 +9,17 @@
 <meta charset="UTF-8">
 
 <%
-	Income inc = (Income) session.getAttribute("inc");
-	NumberFormat toYen = NumberFormat.getCurrencyInstance(); //通貨形式
+Income inc = (Income) session.getAttribute("inc");
+NumberFormat toYen = NumberFormat.getCurrencyInstance(); //通貨形式
 %>
 
 </head>
 <body>
 
 	<div align="center">
-		<h1 align="center">収入情報の削除</h1>
-
+		<h1>収入情報の修正確認</h1>
 		<hr>
-<table border="1" bordercolor="black">
+		<table border="1" bordercolor="black">
 			<tr>
 				<td bgcolor="#92d050" align="center" width=80>日付</td>
 				<td bgcolor="#fcd5b5" align="left" width=400><%=inc.getYear() + "/" + String.format("%02d", inc.getMonth()) + "/" + String.format("%02d", inc.getDay())%>
@@ -41,17 +41,15 @@
 				</td>
 			</tr>
 		</table>
-		<br />
-
-		<p>この情報を削除します。よろしいですか？</p>
+		<p>収入情報をこのように修正します。よろしいですか？</p>
 
 		<table>
 			<tr>
-				<td><FORM METHOD="POST" ACTION="deleteIncomeServlet">
+				<td><FORM METHOD="POST" ACTION="updateServlet">
 						<INPUT TYPE="SUBMIT" VALUE="はい" />
 					</FORM></td>
 				<td>
-					<FORM METHOD="POST" ACTION="IncomeDetails.jsp">
+					<FORM METHOD="POST" ACTION="expensesUpdate.jsp">
 						<INPUT TYPE="SUBMIT" VALUE="いいえ" />
 
 					</FORM>

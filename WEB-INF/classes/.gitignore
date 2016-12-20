@@ -3,3 +3,8 @@
 /deleteExpensesServlet.class
 /deleteIncomeServlet2.class
 /deleteIncomeServlet.class
+/confirmExpensesUpdateServlet.class
+/expensesUpdatePreparationServlet.class
+/expensesUpdatePreServlet.class
+/updatePreperationServlet.class
+/confirmIncomeUpdateServlet.class

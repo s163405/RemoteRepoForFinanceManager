@@ -12,12 +12,14 @@ import javax.servlet.http.HttpSession;
 
 import DBSample.Expenses;
 import DBSample.Income;
+import DataBase.EXPCatManager;
 import DataBase.ExpensesManager;
+import DataBase.INCCatManager;
 import DataBase.IncomeManager;
 
-@WebServlet(name = "listServlet", urlPatterns = { "/listServlet" })
+@WebServlet(name = "updatePreperationServlet", urlPatterns = { "/updatePreperationServlet" })
 
-public class listServlet extends HttpServlet {
+public class updatePreperationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doMain(req, res);
 	}
@@ -33,32 +35,27 @@ public class listServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		HttpSession session = req.getSession();
 
-		String yearMonth = "";
-		yearMonth = (String) req.getParameter("month");
-		if (yearMonth == null) {
-			Calendar calendar = Calendar.getInstance();// 年月切り替え
-			yearMonth = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1);
+		String type = (String)session.getAttribute("type");
+
+		EXPCatManager em = new EXPCatManager();
+
+		LinkedList EXPCatList = em.getEXPList();
+		session.setAttribute("EXPCatList", EXPCatList);
+
+		INCCatManager im = new INCCatManager();
+
+		LinkedList INCCatList = im.getINCList();
+
+		session.setAttribute("INCCatList", INCCatList);
+		if (type.equals("EXP")) {
+			req.getRequestDispatcher("/expensesUpdate.jsp").forward(req, res);
+
+		} else if (type.equals("INC")) {
+			req.getRequestDispatcher("/incomeUpdate.jsp").forward(req, res);
+		} else {
+			out.println("ページ遷移に失敗しました。");
+
 		}
-
-		String[] ym = yearMonth.split("-", 0);// 2016-12を2016と12に分ける
-		int year = Integer.parseInt(ym[0]);
-		int month = Integer.parseInt(ym[1]);
-
-		ExpensesManager em = new ExpensesManager();
-
-		LinkedList EXPList = em.getEXPList(year, month);
-
-		session.setAttribute("EXPList", EXPList);
-		session.setAttribute("year", year);
-		session.setAttribute("month", month);
-
-		IncomeManager im = new IncomeManager();
-
-		LinkedList INCList = im.getINCList(year, month);
-
-		session.setAttribute("INCList", INCList);
-
-		req.getRequestDispatcher("/list.jsp").forward(req, res);
 
 	}
 }

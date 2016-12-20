@@ -10,6 +10,8 @@
 	Calendar calendar = Calendar.getInstance();//年月切り替え
 	LinkedList EXPList = (LinkedList) session.getAttribute("EXPList");
 	LinkedList INCList = (LinkedList) session.getAttribute("INCList");
+	int year = (Integer) session.getAttribute("year");
+	int month = (Integer) session.getAttribute("month");
 %>
 
 <link rel="stylesheet" href="./css/style.css" type="text/css"
@@ -44,18 +46,19 @@
 	<Div align="center">
 		<h1>履歴リスト</h1>
 		<hr>
-		<h2>2016年12月</h2>
+		<h2><%=year%>年<%=month%>月
+		</h2>
 		<p>
 		<form action="listServlet" method="post">
 			<label>他の年月を表示:<input type="month" name="month"
-				value="<%=(calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH)+1))%>"></label>
+				value="<%=(calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1))%>"></label>
 			<input type="submit" value="送信">
 		</form>
 		</p>
 
 		<br />
 
-		<h3>○支出</h3>
+		<h3>*支出*</h3>
 		<TABLE id="EXPTable" class="tablesorter">
 			<thead>
 				<tr bgcolor="#c6d9f1" align="center">
@@ -72,11 +75,12 @@
 						Expenses exp = (Expenses) EXPList.get(i);
 				%>
 				<tr bgcolor="#fcd5b5">
-					<td><%=exp.getYear() + "/" + exp.getMonth() + "/" + exp.getDay()%></td>
+					<td><%=exp.getYear() + "/" + String.format("%02d", exp.getMonth()) + "/"
+						+ String.format("%02d", exp.getDay())%></td>
 					<td><%=exp.getCategory().getCategory()%></td>
 					<td><%=toYen.format(exp.getAmount())%></td>
 					<td><%=exp.getPlace()%></td>
-					<td  width="30px"><form method=post action=detailsServlet>
+					<td width="30px"><form method=post action=detailsServlet>
 							<input type=hidden name=type value=EXP> <input
 								type=hidden name=RID value=<%=exp.getRid()%>> <input
 								type=submit value=詳細>
@@ -91,7 +95,7 @@
 			<input type=submit value=支出を新規入力する>
 		</form>
 		<br /> <br />
-		<h3>○収入</h3>
+		<h3>*収入*</h3>
 		<TABLE id="INCTable" class="tablesorter">
 			<thead>
 				<tr bgcolor="#c6d9f1" align="center">
@@ -107,7 +111,8 @@
 						Income inc = (Income) INCList.get(i);
 				%>
 				<tr bgcolor="#fcd5b5">
-					<td><%=inc.getYear() + "/" + inc.getMonth() + "/" + inc.getDay()%></td>
+					<td><%=inc.getYear() + "/" + String.format("%02d", inc.getMonth()) + "/"
+						+ String.format("%02d", inc.getDay())%></td>
 					<td><%=inc.getCategory().getCategory()%></td>
 					<td><%=toYen.format(inc.getAmount())%></td>
 					<td width="30px"><form method=post action=detailsServlet>
