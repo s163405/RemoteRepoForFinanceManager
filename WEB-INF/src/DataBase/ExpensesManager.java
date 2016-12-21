@@ -51,9 +51,9 @@ public class ExpensesManager extends DataBaseManager {
 		sql += ",";
 		sql += aExp.getAmount();
 		sql += ",";
-		sql += "'"+aExp.getPlace()+"'";
+		sql += "'" + aExp.getPlace() + "'";
 		sql += ",";
-		sql += "'"+aExp.getMemo()+"'";
+		sql += "'" + aExp.getMemo() + "'";
 		sql += ")";
 		updateRecord(sql); // SQLï∂ëóêM
 
@@ -75,8 +75,30 @@ public class ExpensesManager extends DataBaseManager {
 		return EXPList;
 	}
 
-	public LinkedList getEXPList(int year,int month) {
-		String sql = "select * from Expenses where Year="+year+"AND Month="+month;
+	public LinkedList getEXPList(int year, int month) {
+		String sql = "select * from Expenses where Year=" + year + " AND Month=" + month;
+		LinkedList EXPList = getRecords(sql);
+
+		return EXPList;
+	}
+
+	public LinkedList getEXPList(int year, int month, int day) {
+		String sql = "select * from Expenses where Year=" + year + " AND Month=" + month + " AND Day=" + day;
+		LinkedList EXPList = getRecords(sql);
+
+		return EXPList;
+	}
+
+	public LinkedList getEXPListCat(int year, int month, int catRID) {
+		String sql = "select * from Expenses where Year=" + year + " AND Month=" + month + " AND CategoryRID=" + catRID;
+		LinkedList EXPList = getRecords(sql);
+
+		return EXPList;
+	}
+
+	public LinkedList getEXPListCat(int year, int month, int day, int catRID) {
+		String sql = "select * from Expenses where Year=" + year + " AND Month=" + month + " AND Day=" + day
+				+ " AND CategoryRID=" + catRID;
 		LinkedList EXPList = getRecords(sql);
 
 		return EXPList;
