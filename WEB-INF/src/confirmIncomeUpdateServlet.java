@@ -43,6 +43,7 @@ public class confirmIncomeUpdateServlet extends HttpServlet {
 		INCCatManager icm = new INCCatManager();
 		INCCat incCat = icm.get((int) Integer.parseInt(req.getParameter("category")));
 
+		inc.setUser((UserData) session.getAttribute("user"));
 		inc.setYear(year);
 		inc.setMonth(month);
 		inc.setDay(day);

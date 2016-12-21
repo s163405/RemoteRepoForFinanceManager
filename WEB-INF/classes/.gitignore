@@ -8,3 +8,6 @@
 /expensesUpdatePreServlet.class
 /updatePreperationServlet.class
 /confirmIncomeUpdateServlet.class
+/confirmExpensesInsertServlet.class
+/confirmIncomeInsertServlet.class
+/insertPreperationServlet.class
