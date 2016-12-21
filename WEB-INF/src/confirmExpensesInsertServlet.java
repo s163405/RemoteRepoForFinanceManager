@@ -29,29 +29,27 @@ public class confirmExpensesInsertServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		PrintWriter out = res.getWriter();
 
-		IncomeManager em = new IncomeManager();
-
-		Income inc = (Income) session.getAttribute("inc");
+		Expenses exp = new Expenses();
 		String yearMonthDay = (String) req.getParameter("date");
-		System.out.println(yearMonthDay);
 
 		String[] ymd = yearMonthDay.split("-", 0);// 2016-12-01‚ð2016‚Æ12‚Æ1‚É•ª‚¯‚é
 		int year = Integer.parseInt(ymd[0]);
 		int month = Integer.parseInt(ymd[1]);
 		int day = Integer.parseInt(ymd[2]);
 
-		INCCatManager icm = new INCCatManager();
-		INCCat incCat = icm.get((int) Integer.parseInt(req.getParameter("category")));
+		EXPCatManager ecm = new EXPCatManager();
+		EXPCat eCat = ecm.get((int) Integer.parseInt(req.getParameter("category")));
 
-		inc.setUser((UserData) session.getAttribute("user"));
-		inc.setYear(year);
-		inc.setMonth(month);
-		inc.setDay(day);
-		inc.setCategory(incCat);
-		inc.setAmount(Integer.parseInt(req.getParameter("amount")));
-		inc.setMemo((String) req.getParameter("memo"));
+		exp.setUser((UserData) session.getAttribute("user"));
+		exp.setYear(year);
+		exp.setMonth(month);
+		exp.setDay(day);
+		exp.setCategory(eCat);
+		exp.setAmount(Integer.parseInt(req.getParameter("amount")));
+		exp.setPlace((String) req.getParameter("place"));
+		exp.setMemo((String) req.getParameter("memo"));
 
-		session.setAttribute("inc", inc);
+		session.setAttribute("exp", exp);
 
 		req.getRequestDispatcher("/confirmExpensesInsert.jsp").forward(req, res);
 	}

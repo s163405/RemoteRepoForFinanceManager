@@ -1,5 +1,7 @@
 <%@  page contentType="text/html;   charset=UTF-8"%>
 <%@ page session="true"%>
+<%@ page import="DBSample.*"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <HTML lang="ja">
 <HEAD>
@@ -44,8 +46,8 @@ input#button {
 	<Div align="center">
 		<h1>新規入力(支出)</h1>
 		<hr>
-		<p>追加するアイテムの情報を入力してください。</p>
-<FORM METHOD="POST" ACTION="confirmExpensesInputServlet">
+		<p>追加する情報を入力してください。</p>
+<FORM METHOD="POST" ACTION="confirmExpensesInsertServlet">
 			<ul>
 				<li class="date"><label>日付</label> <input id="date" type="date" name="date">
 				</li>

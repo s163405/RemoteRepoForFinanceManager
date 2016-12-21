@@ -12,7 +12,7 @@ import DBSample.*;
 
 import DataBase.*;
 
-@WebServlet(name = "confirmExpensesInsertServlet", urlPatterns = { "/confirmExpensesInsertServlet" })
+@WebServlet(name = "confirmIncomeInsertServlet", urlPatterns = { "/confirmIncomeInsertServlet" })
 
 public class confirmIncomeInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -30,30 +30,26 @@ public class confirmIncomeInsertServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		PrintWriter out = res.getWriter();
 
-		ExpensesManager em = new ExpensesManager();
-
-		Expenses exp = (Expenses) session.getAttribute("exp");
+		Income inc = new Income();
 		String yearMonthDay = (String) req.getParameter("date");
-		System.out.println(yearMonthDay);
 
 		String[] ymd = yearMonthDay.split("-", 0);// 2016-12-01‚ð2016‚Æ12‚Æ1‚É•ª‚¯‚é
 		int year = Integer.parseInt(ymd[0]);
 		int month = Integer.parseInt(ymd[1]);
 		int day = Integer.parseInt(ymd[2]);
 
-		EXPCatManager ecm = new EXPCatManager();
-		EXPCat expCat = ecm.get((int) Integer.parseInt(req.getParameter("category")));
+		INCCatManager icm = new INCCatManager();
+		INCCat iCat = icm.get((int) Integer.parseInt(req.getParameter("category")));
 
-		exp.setUser((UserData) session.getAttribute("user"));
-		exp.setYear(year);
-		exp.setMonth(month);
-		exp.setDay(day);
-		exp.setCategory(expCat);
-		exp.setAmount(Integer.parseInt(req.getParameter("amount")));
-		exp.setPlace((String) req.getParameter("place"));
-		exp.setMemo((String) req.getParameter("memo"));
+		inc.setUser((UserData) session.getAttribute("user"));
+		inc.setYear(year);
+		inc.setMonth(month);
+		inc.setDay(day);
+		inc.setCategory(iCat);
+		inc.setAmount(Integer.parseInt(req.getParameter("amount")));
+		inc.setMemo((String) req.getParameter("memo"));
 
-		session.setAttribute("exp", exp);
+		session.setAttribute("inc", inc);
 
 		req.getRequestDispatcher("/confirmIncomeInsert.jsp").forward(req, res);
 	}

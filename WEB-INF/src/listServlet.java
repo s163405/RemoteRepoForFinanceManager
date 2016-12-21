@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import DBSample.Expenses;
 import DBSample.Income;
+import DBSample.UserData;
 import DataBase.ExpensesManager;
 import DataBase.IncomeManager;
 

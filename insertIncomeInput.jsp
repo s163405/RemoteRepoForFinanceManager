@@ -1,12 +1,14 @@
 <%@  page contentType="text/html;   charset=UTF-8"%>
 <%@ page session="true"%>
+<%@ page import="DBSample.*"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <HTML lang="ja">
 <HEAD>
 <META CHARSET="UTF-8">
 
 <%
-	LinkedList EXPCatList = (LinkedList) session.getAttribute("EXPCatList");
+	LinkedList INCCatList = (LinkedList) session.getAttribute("INCCatList");
 %>
 <style type="text/css">
 ul li {
@@ -42,9 +44,9 @@ input#button {
 </HEAD>
 <BODY>
 	<Div align="center">
-		<h1>新規入力(支出)</h1>
+		<h1>新規入力(収入)</h1>
 		<hr>
-		<p>追加するアイテムの情報を入力してください。</p>
+		<p>追加する情報を入力してください。</p>
 		<FORM METHOD="POST" ACTION="confirmIncomeInsertServlet">
 			<ul>
 				<li class="date"><label>日付</label> <input id="date" type="date"
@@ -67,7 +69,7 @@ input#button {
 				<li class="memo"><label>メモ</label> <INPUT TYPE="TEXT"
 					NAME="memo" /></li>
 
-				<li><INPUT TYPE="SUBMIT" VALUE="更新" /></li>
+				<li><INPUT TYPE="SUBMIT" VALUE="確認" /></li>
 			</ul>
 		</FORM>
 	</Div>

@@ -51,9 +51,9 @@ public class ExpensesManager extends DataBaseManager {
 		sql += ",";
 		sql += aExp.getAmount();
 		sql += ",";
-		sql += aExp.getPlace();
+		sql += "'"+aExp.getPlace()+"'";
 		sql += ",";
-		sql += aExp.getMemo();
+		sql += "'"+aExp.getMemo()+"'";
 		sql += ")";
 		updateRecord(sql); // SQLï∂ëóêM
 

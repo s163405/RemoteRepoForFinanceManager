@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import DBSample.Expenses;
 import DBSample.Income;
+import DBSample.UserData;
 import DataBase.EXPCatManager;
 import DataBase.ExpensesManager;
 import DataBase.INCCatManager;
@@ -35,7 +36,11 @@ public class insertPreperationServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		HttpSession session = req.getSession();
 
-		String type = (String)session.getAttribute("type");
+		String type = (String) req.getParameter("type");
+		if (type == null) {
+			req.getRequestDispatcher("/list.jsp").forward(req, res);
+		}
+		session.setAttribute("type", type);
 
 		EXPCatManager em = new EXPCatManager();
 

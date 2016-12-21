@@ -91,8 +91,9 @@
 				%>
 			</tbody>
 		</TABLE>
-		<form method=post action=insertInput.jsp>
-			<input type=submit value=支出を新規入力する>
+		<form method=post action=insertPreperationServlet>
+			<input type=hidden name=type value=EXP> <input type=submit
+				value=支出を新規入力する>
 		</form>
 		<br /> <br />
 		<h3>*収入*</h3>
@@ -126,8 +127,9 @@
 				%>
 			</tbody>
 		</TABLE>
-		<form method=post action=insertInput.jsp>
-			<input type=submit value=収入を新規入力する>
+		<form method=post action=insertPreperationServlet>
+			<input type=hidden name=type value=INC> <input type=submit
+				value=収入を新規入力する>
 		</form>
 
 	</Div>
