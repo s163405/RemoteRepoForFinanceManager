@@ -29,7 +29,7 @@
 				text : "日ごとの支出"
 			},
 			axisY : {//Y軸
-				valueFormatString : "#0.#,.",//桁のとり方
+				valueFormatString : "#######0",//桁のとり方
 			},
 			data : [
 			<%for (int i = 0; i < expSCData[i].length; i++) {//カテゴリ別

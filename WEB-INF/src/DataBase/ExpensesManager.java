@@ -59,46 +59,41 @@ public class ExpensesManager extends DataBaseManager {
 
 	}
 
-	public Expenses get(int id) {
+	public Expenses get(UserData ud, int id) {
 		String sql = "";
-		sql += "select * from Expenses where RID=";
+		sql += "select * from Expenses where UserRID=" + ud.getRid() + " AND RID=";
 		sql += id;
-		Expenses aInc = (Expenses) getRecord(sql); // SQLï∂ëóêM
+		Expenses aExp = (Expenses) getRecord(sql); // SQLï∂ëóêM
 
-		return aInc;
+		return aExp;
 	}
+	//
+	// public LinkedList getEXPList() {
+	// String sql = "select * from Expenses";
+	// LinkedList EXPList = getRecords(sql);
+	//
+	// return EXPList;
+	// }
 
-	public LinkedList getEXPList() {
-		String sql = "select * from Expenses";
+	public LinkedList getEXPList(UserData ud, int year, int month) {
+		String sql = "select * from Expenses where UserRID=" + ud.getRid() + " AND Year=" + year + " AND Month="
+				+ month;
 		LinkedList EXPList = getRecords(sql);
 
 		return EXPList;
 	}
 
-	public LinkedList getEXPList(int year, int month) {
-		String sql = "select * from Expenses where Year=" + year + " AND Month=" + month;
-		LinkedList EXPList = getRecords(sql);
-
-		return EXPList;
-	}
-
-	public LinkedList getEXPList(int year, int month, int day) {
-		String sql = "select * from Expenses where Year=" + year + " AND Month=" + month + " AND Day=" + day;
-		LinkedList EXPList = getRecords(sql);
-
-		return EXPList;
-	}
-
-	public LinkedList getEXPListCat(int year, int month, int catRID) {
-		String sql = "select * from Expenses where Year=" + year + " AND Month=" + month + " AND CategoryRID=" + catRID;
-		LinkedList EXPList = getRecords(sql);
-
-		return EXPList;
-	}
-
-	public LinkedList getEXPListCat(int year, int month, int day, int catRID) {
-		String sql = "select * from Expenses where Year=" + year + " AND Month=" + month + " AND Day=" + day
+	public LinkedList getEXPListCat(UserData ud, int year, int month, int catRID) {
+		String sql = "select * from Expenses where UserRID=" + ud.getRid() + " AND Year=" + year + " AND Month=" + month
 				+ " AND CategoryRID=" + catRID;
+		LinkedList EXPList = getRecords(sql);
+
+		return EXPList;
+	}
+
+	public LinkedList getEXPListCat(UserData ud, int year, int month, int day, int catRID) {
+		String sql = "select * from Expenses where UserRID=" + ud.getRid() + " AND Year=" + year + " AND Month=" + month
+				+ " AND Day=" + day + " AND CategoryRID=" + catRID;
 		LinkedList EXPList = getRecords(sql);
 
 		return EXPList;

@@ -34,6 +34,11 @@ public class listServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		HttpSession session = req.getSession();
 
+		UserData ud = (UserData) session.getAttribute("user");
+		if (ud == null) {
+			req.getRequestDispatcher("/login.jsp").forward(req, res);
+		}
+
 		String yearMonth = "";
 		yearMonth = (String) req.getParameter("month");
 		if (yearMonth == null) {
@@ -47,7 +52,7 @@ public class listServlet extends HttpServlet {
 
 		ExpensesManager em = new ExpensesManager();
 
-		LinkedList EXPList = em.getEXPList(year, month);
+		LinkedList EXPList = em.getEXPList(ud, year, month);
 
 		session.setAttribute("EXPList", EXPList);
 		session.setAttribute("year", year);
@@ -55,7 +60,7 @@ public class listServlet extends HttpServlet {
 
 		IncomeManager im = new IncomeManager();
 
-		LinkedList INCList = im.getINCList(year, month);
+		LinkedList INCList = im.getINCList(ud, year, month);
 
 		session.setAttribute("INCList", INCList);
 

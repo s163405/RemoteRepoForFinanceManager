@@ -45,7 +45,7 @@
 <BODY>
 	<Div align="center">
 		<h1>履歴リスト</h1>
-						<form method=post action=indexServlet>
+		<form method=post action=indexServlet>
 			<input type=submit value=家計簿の概要表示へ>
 		</form>
 		<hr>

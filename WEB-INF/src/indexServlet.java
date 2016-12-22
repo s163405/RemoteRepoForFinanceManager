@@ -31,12 +31,15 @@ public class indexServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		HttpSession session = req.getSession();
 
-		// DBManagerの呼び出し
+		// DBの呼び出しに必要なmanager,User
 		ExpensesManager em = new ExpensesManager();
 		IncomeManager im = new IncomeManager();
 		EXPCatManager ecm = new EXPCatManager();
 		INCCatManager icm = new INCCatManager();
-
+		UserData ud = (UserData) session.getAttribute("user");
+		if (ud == null) {
+			req.getRequestDispatcher("/login.jsp").forward(req, res);
+		}
 
 		/******************************************
 		 * 年月の処理
@@ -58,8 +61,8 @@ public class indexServlet extends HttpServlet {
 		/******************************************
 		 * 総額計算（支出,収入）
 		 ******************************************/
-		LinkedList EXPList = em.getEXPList(year, month);
-		LinkedList INCList = im.getINCList(year, month);
+		LinkedList EXPList = em.getEXPList(ud, year, month);
+		LinkedList INCList = im.getINCList(ud, year, month);
 
 		int totalEXP = 0;
 		int totalINC = 0;
@@ -99,20 +102,9 @@ public class indexServlet extends HttpServlet {
 		// グラフに入力するための二次元配列の生成
 		int expSCData[][] = new int[lastDayOfMonth][EXPCatList.size()];
 
-//		for (int thisDay = 0; thisDay < lastDayOfMonth; thisDay++) {
-//			for (int thisCategory = 0; thisCategory < EXPCatList.size(); thisCategory++) {
-//				LinkedList expListCat = em.getEXPListCat(year, month, thisDay + 1, thisCategory + 1);
-//				for (int i = 0; i < expListCat.size(); i++) {
-//					Expenses expthisDayCat = (Expenses) expListCat.get(i);
-//					expSCData[thisDay][thisCategory] += expthisDayCat.getAmount();
-//
-//				}
-//			}
-//		}
-
 		for (int thisDay = 0; thisDay < lastDayOfMonth; thisDay++) {
 			for (int thisCategory = 0; thisCategory < EXPCatList.size(); thisCategory++) {
-				LinkedList expListCat = em.getEXPListCat(year, month, thisDay + 1, thisCategory + 1);
+				LinkedList expListCat = em.getEXPListCat(ud, year, month, thisDay + 1, thisCategory + 1);
 				for (int i = 0; i < expListCat.size(); i++) {
 					Expenses expthisDayCat = (Expenses) expListCat.get(i);
 					expSCData[thisDay][thisCategory] += expthisDayCat.getAmount();
@@ -128,7 +120,7 @@ public class indexServlet extends HttpServlet {
 		 ******************************************/
 		int expPieData[] = new int[EXPCatList.size()];
 		for (int thisCategory = 0; thisCategory < EXPCatList.size(); thisCategory++) {
-			LinkedList monthlyEXPListCat = em.getEXPListCat(year, month, thisCategory+1);
+			LinkedList monthlyEXPListCat = em.getEXPListCat(ud, year, month, thisCategory + 1);
 			for (int i = 0; i < monthlyEXPListCat.size(); i++) {
 				Expenses monthlyEXPAmountCat = (Expenses) monthlyEXPListCat.get(i);
 				expPieData[thisCategory] += monthlyEXPAmountCat.getAmount();
@@ -142,7 +134,7 @@ public class indexServlet extends HttpServlet {
 		 ******************************************/
 		int incPieData[] = new int[INCCatList.size()];
 		for (int thisCategory = 0; thisCategory < INCCatList.size(); thisCategory++) {
-			LinkedList monthlyINCListCat = im.getINCListCat(year, month, thisCategory+1);
+			LinkedList monthlyINCListCat = im.getINCListCat(ud, year, month, thisCategory + 1);
 			for (int i = 0; i < monthlyINCListCat.size(); i++) {
 				Income monthlyINCAmountCat = (Income) monthlyINCListCat.get(i);
 				incPieData[thisCategory] += monthlyINCAmountCat.getAmount();
