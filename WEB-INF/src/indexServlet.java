@@ -37,6 +37,7 @@ public class indexServlet extends HttpServlet {
 		EXPCatManager ecm = new EXPCatManager();
 		INCCatManager icm = new INCCatManager();
 
+
 		/******************************************
 		 * 年月の処理
 		 ******************************************/
@@ -89,7 +90,7 @@ public class indexServlet extends HttpServlet {
 		/*******************************************
 		 * 積み上げグラフ（日別支出）Stacked Column
 		 ******************************************/
-		// 月末計算
+		// 月末の日を計算
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, year);
 		cal.set(Calendar.MONTH, month);
@@ -97,6 +98,17 @@ public class indexServlet extends HttpServlet {
 
 		// グラフに入力するための二次元配列の生成
 		int expSCData[][] = new int[lastDayOfMonth][EXPCatList.size()];
+
+//		for (int thisDay = 0; thisDay < lastDayOfMonth; thisDay++) {
+//			for (int thisCategory = 0; thisCategory < EXPCatList.size(); thisCategory++) {
+//				LinkedList expListCat = em.getEXPListCat(year, month, thisDay + 1, thisCategory + 1);
+//				for (int i = 0; i < expListCat.size(); i++) {
+//					Expenses expthisDayCat = (Expenses) expListCat.get(i);
+//					expSCData[thisDay][thisCategory] += expthisDayCat.getAmount();
+//
+//				}
+//			}
+//		}
 
 		for (int thisDay = 0; thisDay < lastDayOfMonth; thisDay++) {
 			for (int thisCategory = 0; thisCategory < EXPCatList.size(); thisCategory++) {
@@ -116,7 +128,7 @@ public class indexServlet extends HttpServlet {
 		 ******************************************/
 		int expPieData[] = new int[EXPCatList.size()];
 		for (int thisCategory = 0; thisCategory < EXPCatList.size(); thisCategory++) {
-			LinkedList monthlyEXPListCat = em.getEXPListCat(year, month, thisCategory);
+			LinkedList monthlyEXPListCat = em.getEXPListCat(year, month, thisCategory+1);
 			for (int i = 0; i < monthlyEXPListCat.size(); i++) {
 				Expenses monthlyEXPAmountCat = (Expenses) monthlyEXPListCat.get(i);
 				expPieData[thisCategory] += monthlyEXPAmountCat.getAmount();
@@ -126,13 +138,13 @@ public class indexServlet extends HttpServlet {
 		session.setAttribute("expPieData", expPieData);
 
 		/*******************************************
-		 * 円グラフ（支出）pie chart(Income)
+		 * 円グラフ（収入）pie chart(Income)
 		 ******************************************/
 		int incPieData[] = new int[INCCatList.size()];
 		for (int thisCategory = 0; thisCategory < INCCatList.size(); thisCategory++) {
-			LinkedList monthlyINCListCat = em.getEXPListCat(year, month, thisCategory);
+			LinkedList monthlyINCListCat = im.getINCListCat(year, month, thisCategory+1);
 			for (int i = 0; i < monthlyINCListCat.size(); i++) {
-				Expenses monthlyINCAmountCat = (Expenses) monthlyINCListCat.get(i);
+				Income monthlyINCAmountCat = (Income) monthlyINCListCat.get(i);
 				incPieData[thisCategory] += monthlyINCAmountCat.getAmount();
 
 			}
