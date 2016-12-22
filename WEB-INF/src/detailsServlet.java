@@ -8,12 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import DBSample.Expenses;
-import DBSample.Income;
-import DBSample.Item;
-import DataBase.ExpensesManager;
-import DataBase.IncomeManager;
-import DataBase.ItemManager;
+import DBSample.*;
+import DataBase.*;
 
 @WebServlet(name = "detailsServlet", urlPatterns = { "/detailsServlet" })
 
@@ -33,19 +29,26 @@ public class detailsServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		PrintWriter out = res.getWriter();
 
+		UserData ud = (UserData) session.getAttribute("user");
+		if (ud == null) {
+			req.getRequestDispatcher("/login.jsp").forward(req, res);
+		}
+
 		String type = req.getParameter("type");
 		session.setAttribute("type", type);
 		int rid = Integer.parseInt(req.getParameter("RID"));
 
+
+
 		if (type.equals("EXP")) {
 			ExpensesManager em = new ExpensesManager();
-			Expenses exp = (Expenses) em.get(rid);
+			Expenses exp = (Expenses) em.get(ud, rid);
 			session.setAttribute("exp", exp);
 			req.getRequestDispatcher("/expensesDetails.jsp").forward(req, res);
 
 		} else if (type.equals("INC")) {
 			IncomeManager im = new IncomeManager();
-			Income inc = (Income) im.get(rid);
+			Income inc = (Income) im.get(ud, rid);
 			session.setAttribute("inc", inc);
 			req.getRequestDispatcher("/incomeDetails.jsp").forward(req, res);
 

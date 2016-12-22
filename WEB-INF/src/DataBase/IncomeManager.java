@@ -54,31 +54,41 @@ public class IncomeManager extends DataBaseManager {
 
 	}
 
-	public Income get(int id) {
+	public Income get(UserData ud, int id) {
 		String sql = "";
-		sql += "select * from Income where RID=";
+		sql += "select * from Income where UserRid=" + ud.getRid() + " AND RID=";
 		sql += id;
+
 		Income aInc = (Income) getRecord(sql); // SQLï∂ëóêM
 
 		return aInc;
 	}
 
-	public LinkedList getINCList() {
-		String sql = "select * from Income";
+	// public LinkedList getINCList() {
+	// String sql = "select * from Income";
+	// LinkedList INCList = getRecords(sql);
+	//
+	// return INCList;
+	// }
+
+	public LinkedList getINCList(UserData ud, int year, int month) {
+		String sql = "select * from Income where UserRid=" + ud.getRid() + " AND Year=" + year + " AND Month=" + month;
 		LinkedList INCList = getRecords(sql);
 
 		return INCList;
 	}
 
-	public LinkedList getINCList(int year, int month) {
-		String sql = "select * from Income where Year=" + year + " AND Month=" + month;
-		LinkedList INCList = getRecords(sql);
+	// public LinkedList getINCListCat(int year, int month, int catRID) {
+	// String sql = "select * from Income where Year=" + year + " AND Month=" +
+	// month + " AND CategoryRID=" + catRID;
+	// LinkedList INCList = getRecords(sql);
+	//
+	// return INCList;
+	// }
 
-		return INCList;
-	}
-
-	public LinkedList getINCListCat(int year, int month, int catRID) {
-		String sql = "select * from Income where Year=" + year + " AND Month=" + month + " AND CategoryRID=" + catRID;
+	public LinkedList getINCListCat(UserData ud, int year, int month, int catRID) {
+		String sql = "select * from Income where UserRid=" + ud.getRid() + " AND Year=" + year + " AND Month=" + month
+				+ " AND CategoryRID=" + catRID;
 		LinkedList INCList = getRecords(sql);
 
 		return INCList;
