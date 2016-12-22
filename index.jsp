@@ -22,6 +22,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
 <script type="text/javascript">
 	window.onload = function() {
+
 		//積み上げ棒グラフ
 		var chart = new CanvasJS.Chart("EXPstackedColumn", {
 			title : {//タイトル
@@ -35,7 +36,8 @@
 				EXPCat thisEXPCat = (EXPCat) expCatList.get(i);%>
 				data : [ {
 						type : "stackedColumn",
-						legendText : "<%=thisEXPCat.getCategory()%>",//凡例
+						//凡例
+						legendText : "<%=thisEXPCat.getCategory()%>",
 						showInLegend : "true",//その項目をグラフに表示するか(T/F)
 
 						<%if (i == expSCData[i].length - 1) {%>
@@ -73,13 +75,10 @@
 				legendText : "{indexLabel}",//凡例のテキスト
 
 				dataPoints : [
-				<%for(int i=0;i<expPieData.length;i++){
+				<%for(i=0;i<expPieData.length;i++){
 					EXPCat thisEXPXat=(EXPCat)expCatList.get(i);%>
-					{
-						y : <%=expPieData[i]%>,
-						indexLabel : <%=thisEXPCat%>
-					}
-
+					{						y : <%=expPieData[i]%>,
+						indexLabel : <%=thisEXPCat%>					}
 				<%if(i!=(expPieData.length-1)){
 					out.print(",");
 					}
@@ -88,6 +87,7 @@
 			} ]
 		});
 		chart.render();
+
 
 		//ここまで変えた
 
