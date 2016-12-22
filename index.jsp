@@ -8,8 +8,8 @@
 <%
 	NumberFormat toYen = NumberFormat.getCurrencyInstance(); //通貨形式
 	Calendar calendar = Calendar.getInstance();//年月切り替え
-	LinkedList EXPList = (LinkedList) session.getAttribute("EXPList");
-	LinkedList INCList = (LinkedList) session.getAttribute("INCList");
+	LinkedList expCatList = (LinkedList) session.getAttribute("EXPCatList");
+	LinkedList incCatList = (LinkedList) session.getAttribute("INCCatList");
 	int year = (Integer) session.getAttribute("year");
 	int month = (Integer) session.getAttribute("month");
 	int totalEXP = (Integer) session.getAttribute("totalEXP");
@@ -22,65 +22,43 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
 <script type="text/javascript">
 	window.onload = function() {
+		//積み上げ棒グラフ
 		var chart = new CanvasJS.Chart("EXPstackedColumn", {
 			title : {//タイトル
 				text : "Coal Reserves of Countries"
 			},
-			axisY : {
-				valueFormatString : "#0.#,.",
+			axisY : {//Y軸
+				valueFormatString : "#0.#,.",//桁のとり方
 			},
-			data : [ {
-				type : "stackedColumn",
-				legendText : "Anthracite & Bituminous",
-				showInLegend : "true",
+
+			<%for (int i = 0; i < expSCData[i].length; i++) {//カテゴリ別
+				EXPCat thisEXPCat = (EXPCat) expCatList.get(i);%>
+				data : [ {
+						type : "stackedColumn",
+						legendText : "<%=thisEXPCat.getCategory()%>",//凡例
+						showInLegend : "true",//その項目をグラフに表示するか(T/F)
+
+						<%if (i == expSCData[i].length - 1) {%>
+							indexLabel : "#total bn",//棒の上に表示される数字の単位
+							yValueFormatString : "#0.#,.",//単位のとり方
+							indexLabelPlacement : "outside",//数字はどこに表示させるか
+						<%}%>
+						}
 				dataPoints : [ {
-					y : 111338,
-					label : "USA"
-				}, {
-					y : 49088,
-					label : "Russia"
-				}, {
-					y : 62200,
-					label : "China"
-				}, {
-					y : 90085,
-					label : "India"
-				}, {
-					y : 38600,
-					label : "Australia"
-				}, {
-					y : 48750,
-					label : "SA"
-				} ]
-			}, {
-				type : "stackedColumn",
-				legendText : "SubBituminous & Lignite",
-				showInLegend : "true",
-				indexLabel : "#total bn",
-				yValueFormatString : "#0.#,.",
-				indexLabelPlacement : "outside",
-				dataPoints : [ {
-					y : 135305,
-					label : "USA"
-				}, {
-					y : 107922,
-					label : "Russia"
-				}, {
-					y : 52300,
-					label : "China"
-				}, {
-					y : 3360,
-					label : "India"
-				}, {
-					y : 39900,
-					label : "Australia"
-				}, {
-					y : 0,
-					label : "SA"
-				} ]
+				<%for (int j = 0; j < expSCData.length; j++) {//1-31日%>
+					y : <%=expSCData[i][j]%>,
+					label : <%=month+"/"+(j+1)%>
+					}
+				<%if(j!=expSCData.length-1){
+					out.print(",");}%>
+
+				]
+
+			<%}%>
 			} ]
 		});
 		chart.render();
+
 
 		var chart = new CanvasJS.Chart("EXPpieChart", {
 			theme : "theme2",
@@ -90,7 +68,7 @@
 			data : [ {
 				type : "pie",
 				showInLegend : true,
-				toolTipContent : "{y} - #percent %",
+				toolTipContent : "{y} - #percent %",//yValue(単位付き),X％
 				yValueFormatString : "#,##0,,.## Million",
 				legendText : "{indexLabel}",
 				dataPoints : [ {
