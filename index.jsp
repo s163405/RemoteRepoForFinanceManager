@@ -25,7 +25,7 @@
 		//積み上げ棒グラフ
 		var chart = new CanvasJS.Chart("EXPstackedColumn", {
 			title : {//タイトル
-				text : "Coal Reserves of Countries"
+				text : "日ごとの支出"
 			},
 			axisY : {//Y軸
 				valueFormatString : "#0.#,.",//桁のとり方
@@ -39,7 +39,7 @@
 						showInLegend : "true",//その項目をグラフに表示するか(T/F)
 
 						<%if (i == expSCData[i].length - 1) {%>
-							indexLabel : "#total bn",//棒の上に表示される数字の単位
+							indexLabel : "#total 円",//棒の上に表示される数字の単位
 							yValueFormatString : "#0.#,.",//単位のとり方
 							indexLabelPlacement : "outside",//数字はどこに表示させるか
 						<%}%>
@@ -70,32 +70,26 @@
 				showInLegend : true,
 				toolTipContent : "{y} - #percent %",//yValue(単位付き),X％
 				yValueFormatString : "#,##0,,.## Million",
-				legendText : "{indexLabel}",
-				dataPoints : [ {
-					y : 4181563,
-					indexLabel : "PlayStation 3"
-				}, {
-					y : 2175498,
-					indexLabel : "Wii"
-				}, {
-					y : 3125844,
-					indexLabel : "Xbox 360"
-				}, {
-					y : 1176121,
-					indexLabel : "Nintendo DS"
-				}, {
-					y : 1727161,
-					indexLabel : "PSP"
-				}, {
-					y : 4303364,
-					indexLabel : "Nintendo 3DS"
-				}, {
-					y : 1717786,
-					indexLabel : "PS Vita"
-				} ]
+				legendText : "{indexLabel}",//凡例のテキスト
+
+				dataPoints : [
+				<%for(int i=0;i<expPieData.length;i++){
+					EXPCat thisEXPXat=(EXPCat)expCatList.get(i);%>
+					{
+						y : <%=expPieData[i]%>,
+						indexLabel : <%=thisEXPCat%>
+					}
+
+				<%if(i!=(expPieData.length-1)){
+					out.print(",");
+					}
+					}%>
+				},  ]
 			} ]
 		});
 		chart.render();
+
+		//ここまで変えた
 
 		var chart = new CanvasJS.Chart("INCpieChart", {
 			theme : "theme2",
