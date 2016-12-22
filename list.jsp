@@ -45,9 +45,13 @@
 <BODY>
 	<Div align="center">
 		<h1>履歴リスト</h1>
+						<form method=post action=indexServlet>
+			<input type=submit value=家計簿の概要表示へ>
+		</form>
 		<hr>
 		<h2><%=year%>年<%=month%>月
 		</h2>
+
 		<p>
 		<form action="listServlet" method="post">
 			<label>他の年月を表示:<input type="month" name="month"

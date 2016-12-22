@@ -32,7 +32,7 @@ public class EXPCatManager extends DataBaseManager {
 		return aExp;
 	}
 
-	public LinkedList getEXPList() {
+	public LinkedList getEXPCatList() {
 		String sql = "select * from EXPCat";
 		LinkedList EXPCatList = getRecords(sql);
 

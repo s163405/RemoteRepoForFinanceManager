@@ -40,7 +40,7 @@ public class INCCatManager extends DataBaseManager {
 		return aInc;
 	}
 
-	public LinkedList getINCList() {
+	public LinkedList getINCCatList() {
 		String sql = "select * from INCCat";
 		LinkedList INCCatList = getRecords(sql);
 

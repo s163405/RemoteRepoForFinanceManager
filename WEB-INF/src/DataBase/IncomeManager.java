@@ -48,7 +48,7 @@ public class IncomeManager extends DataBaseManager {
 		sql += ",";
 		sql += aInc.getAmount();
 		sql += ",";
-		sql += "'"+aInc.getMemo()+"'";
+		sql += "'" + aInc.getMemo() + "'";
 		sql += ")";
 		updateRecord(sql); // SQLï∂ëóêM
 
@@ -71,7 +71,14 @@ public class IncomeManager extends DataBaseManager {
 	}
 
 	public LinkedList getINCList(int year, int month) {
-		String sql = "select * from Income where Year="+year+" AND Month="+month;
+		String sql = "select * from Income where Year=" + year + " AND Month=" + month;
+		LinkedList INCList = getRecords(sql);
+
+		return INCList;
+	}
+
+	public LinkedList getINCListCat(int year, int month, int catRID) {
+		String sql = "select * from Income where Year=" + year + " AND Month=" + month + " AND CategoryRID=" + catRID;
 		LinkedList INCList = getRecords(sql);
 
 		return INCList;

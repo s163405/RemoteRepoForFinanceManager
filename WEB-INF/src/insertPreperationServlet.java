@@ -44,12 +44,12 @@ public class insertPreperationServlet extends HttpServlet {
 
 		EXPCatManager em = new EXPCatManager();
 
-		LinkedList EXPCatList = em.getEXPList();
+		LinkedList EXPCatList = em.getEXPCatList();
 		session.setAttribute("EXPCatList", EXPCatList);
 
 		INCCatManager im = new INCCatManager();
 
-		LinkedList INCCatList = im.getINCList();
+		LinkedList INCCatList = im.getINCCatList();
 
 		session.setAttribute("INCCatList", INCCatList);
 		if (type.equals("EXP")) {
