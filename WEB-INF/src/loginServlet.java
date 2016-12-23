@@ -42,7 +42,8 @@ public class loginServlet extends HttpServlet {
 		}else{
 			session.setAttribute("user", user);
 			System.out.println("ユーザログイン：成功");
-			req.getRequestDispatcher("./listServlet").forward(req, res);
+			req.getRequestDispatcher("./indexServlet").forward(req, res);
+
 
 		}
 
