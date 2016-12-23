@@ -63,6 +63,7 @@ public class ExpensesManager extends DataBaseManager {
 		String sql = "";
 		sql += "select * from Expenses where UserRID=" + ud.getRid() + " AND RID=";
 		sql += id;
+		sql += " ORDER BY Year, Month, Day";
 		Expenses aExp = (Expenses) getRecord(sql); // SQLï∂ëóêM
 
 		return aExp;
@@ -78,6 +79,7 @@ public class ExpensesManager extends DataBaseManager {
 	public LinkedList getEXPList(UserData ud, int year, int month) {
 		String sql = "select * from Expenses where UserRID=" + ud.getRid() + " AND Year=" + year + " AND Month="
 				+ month;
+		sql += " ORDER BY Year, Month, Day";
 		LinkedList EXPList = getRecords(sql);
 
 		return EXPList;
@@ -86,6 +88,7 @@ public class ExpensesManager extends DataBaseManager {
 	public LinkedList getEXPListCat(UserData ud, int year, int month, int catRID) {
 		String sql = "select * from Expenses where UserRID=" + ud.getRid() + " AND Year=" + year + " AND Month=" + month
 				+ " AND CategoryRID=" + catRID;
+		sql += " ORDER BY Year, Month, Day";
 		LinkedList EXPList = getRecords(sql);
 
 		return EXPList;
@@ -94,6 +97,7 @@ public class ExpensesManager extends DataBaseManager {
 	public LinkedList getEXPListCat(UserData ud, int year, int month, int day, int catRID) {
 		String sql = "select * from Expenses where UserRID=" + ud.getRid() + " AND Year=" + year + " AND Month=" + month
 				+ " AND Day=" + day + " AND CategoryRID=" + catRID;
+		sql += " ORDER BY Year, Month, Day";
 		LinkedList EXPList = getRecords(sql);
 
 		return EXPList;

@@ -11,56 +11,98 @@
 <%
 	Income inc = (Income) session.getAttribute("inc");
 	LinkedList INCCatList = (LinkedList) session.getAttribute("INCCatList");
+	UserData ud = (UserData) session.getAttribute("user");
 %>
-<style type="text/css">
-ul li {
-	list-style: none;
-	margin-top: 10px;
-}
+<!-- 3. ビューポートの設定-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>収入情報更新｜かけいぼ！</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
 
-label {
-	margin-right: 10px;
-	width: 100px;
-	float: left;
-}
+<script src="http://code.jquery.com/jquery-3.1.1.js"
+	integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+	crossorigin="anonymous"></script>
 
-ul {
-	width: 500px;
-	margin: 0 auto;
-}
+<script src="js/bootstrap.min.js"></script>
 
-input {
-	width: 180px;
-}
+</head>
+<body>
 
-select {
-	width: 180px;
-}
 
-input#button {
-	display: block;
-	width: 150px;
-	margin: 0 auto;
-}
-</style>
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
 
-</HEAD>
-<BODY>
-	<div align="center">
-		<h1>収入情報更新</h1>
-		<hr>
+			<!-- モバイル表示用の省略メニュー -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#navbar-menu">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand">かけいぼ！</a>
+			</div>
+
+			<!-- ナビゲーションメニュー -->
+			<div class="collapse navbar-collapse" id="navbar-menu">
+				<ul class="nav navbar-nav">
+					<li><a href="./indexServlet">家計簿の概要</a></li>
+					<li><a href="./listServlet">履歴リスト</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-left">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> 新規入力<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="javascript:void(0)"
+								onclick="document.insertEXP.submit(); return false;">支出</a></li>
+							<form name="insertEXP" method="post"
+								action="./insertPreperationServlet">
+								<input type="hidden" name="type" value="EXP">
+							</form>
+
+							<li><a href="javascript:void(0)"
+								onclick="document.insertINC.submit(); return false;">収入</a></li>
+							<form name="insertINC" method="post"
+								action="./insertPreperationServlet">
+								<input type="hidden" name="type" value="INC">
+							</form>
+						</ul></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> ようこそ、 <%=ud.getUserID()%> さん<span
+							class="caret"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="./logoutServlet">ログアウト</a></li>
+						</ul></li>
+					<ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="page-header">
+			<br />
+			<h1>収入情報更新</h1>
+		</div>
 
 		<p>更新する情報を入力してください。</p>
-		<FORM METHOD="POST" ACTION="confirmIncomeUpdateServlet">
-			<ul>
-				<li class="date"><label>日付</label> <input id="date" type="date"
-					name="date"
-					value=<%=(inc.getYear() + "-" + String.format("%02d", inc.getMonth()) + "-"
+		<FORM class="form-horizontal" METHOD="POST"
+			ACTION="confirmIncomeUpdateServlet">
+			<div class="form-group">
+				<label class="control-label col-xs-2">日付</label>
+				<div class="col-xs-5">
+					<input id="date" type="date" name="date"
+						value=<%=(inc.getYear() + "-" + String.format("%02d", inc.getMonth()) + "-"
 					+ String.format("%02d", inc.getDay()))%>>
-				</li>
+				</div>
+			</div>
 
-				<li class="category"><label>カテゴリ</label> <select
-					name="category">
+			<div class="form-group">
+				<label class="control-label col-xs-2">カテゴリ</label>
+				<div class="col-xs-5">
+					<select name="category">
 						<%
 							for (int i = 0; i < INCCatList.size(); i++) {
 								INCCat incCat = (INCCat) INCCatList.get(i);
@@ -69,15 +111,29 @@ input#button {
 						<%
 							}
 						%>
-				</select></li>
+					</select>
+				</div>
+			</div>
 
-				<li class="amount"><label>金額</label> <input type="number"
-					name="amount" value=<%=inc.getAmount()%>></li>
-				<li class="memo"><label>メモ</label> <INPUT TYPE="TEXT"
-					NAME="memo" VALUE="<%=inc.getMemo()%>" /></li>
+			<div class="form-group">
+				<label class="control-label col-xs-2">金額</label>
+				<div class="col-xs-5">
+					<input type="number" name="amount" value=<%=inc.getAmount()%>>
+				</div>
+			</div>
 
-				<li><INPUT TYPE="SUBMIT" VALUE="情報の修正" /></li>
-			</ul>
+			<div class="form-group">
+				<label class="control-label col-xs-2">メモ</label>
+				<div class="col-xs-5">
+					<INPUT TYPE="TEXT" NAME="memo" VALUE="<%=inc.getMemo()%>" />
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-offset-2 col-xs-10">
+					<INPUT TYPE="SUBMIT" VALUE="情報の修正" />
+				</div>
+			</div>
+
 		</FORM>
 
 	</div>
