@@ -31,6 +31,7 @@ public class logoutServlet extends HttpServlet {
 
 		System.out.println("ログアウトしています...");
 		session.removeAttribute("user");
+		session.invalidate();	//セッションを全て削除
 		req.getRequestDispatcher("./login.jsp").forward(req, res);
 
 	}

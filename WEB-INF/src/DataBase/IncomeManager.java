@@ -58,6 +58,7 @@ public class IncomeManager extends DataBaseManager {
 		String sql = "";
 		sql += "select * from Income where UserRid=" + ud.getRid() + " AND RID=";
 		sql += id;
+		sql += " ORDER BY Year, Month, Day";
 
 		Income aInc = (Income) getRecord(sql); // SQLï∂ëóêM
 
@@ -73,6 +74,7 @@ public class IncomeManager extends DataBaseManager {
 
 	public LinkedList getINCList(UserData ud, int year, int month) {
 		String sql = "select * from Income where UserRid=" + ud.getRid() + " AND Year=" + year + " AND Month=" + month;
+		sql += " ORDER BY Year, Month, Day";
 		LinkedList INCList = getRecords(sql);
 
 		return INCList;
@@ -89,6 +91,7 @@ public class IncomeManager extends DataBaseManager {
 	public LinkedList getINCListCat(UserData ud, int year, int month, int catRID) {
 		String sql = "select * from Income where UserRid=" + ud.getRid() + " AND Year=" + year + " AND Month=" + month
 				+ " AND CategoryRID=" + catRID;
+		sql += " ORDER BY Year, Month, Day";
 		LinkedList INCList = getRecords(sql);
 
 		return INCList;
