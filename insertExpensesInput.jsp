@@ -93,7 +93,7 @@
 			<div class="form-group">
 				<label class="control-label col-xs-2">日付</label>
 				<div class="col-xs-5">
-					<input id="date" type="date" name="date">
+					<input id="date" type="date" name="date" required>
 				</div>
 			</div>
 
@@ -117,14 +117,14 @@
 			<div class="form-group">
 				<label class="control-label col-xs-2">金額</label>
 				<div class="col-xs-5">
-					<input type="number" name="amount">
+					<input type="number" name="amount"  min="1" required>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="control-label col-xs-2">場所</label>
 				<div class="col-xs-5">
-					<INPUT TYPE="TEXT" NAME="place" />
+					<INPUT TYPE="TEXT" NAME="place" required />
 				</div>
 			</div>
 

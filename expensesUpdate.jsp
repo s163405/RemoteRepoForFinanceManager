@@ -98,7 +98,7 @@
 				<div class="col-xs-5">
 					<input id="date" type="date" name="date"
 						value=<%=(exp.getYear() + "-" + String.format("%02d", exp.getMonth()) + "-"
-					+ String.format("%02d", exp.getDay()))%>>
+					+ String.format("%02d", exp.getDay()))%> required>
 				</div>
 			</div>
 
@@ -123,14 +123,14 @@
 			<div class="form-group">
 				<label class="control-label col-xs-2">金額</label>
 				<div class="col-xs-5">
-					<input type="number" name="amount" value=<%=exp.getAmount()%>>
+					<input type="number" name="amount" value=<%=exp.getAmount()%> min="1" required>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="control-label col-xs-2">場所</label>
 				<div class="col-xs-5">
-					<INPUT TYPE="TEXT" NAME="place" VALUE="<%=exp.getPlace()%>" />
+					<INPUT TYPE="TEXT" NAME="place" VALUE="<%=exp.getPlace()%>"  required/>
 				</div>
 			</div>
 
