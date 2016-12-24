@@ -95,7 +95,7 @@
 				<div class="col-xs-5">
 					<input id="date" type="date" name="date"
 						value=<%=(inc.getYear() + "-" + String.format("%02d", inc.getMonth()) + "-"
-					+ String.format("%02d", inc.getDay()))%>>
+					+ String.format("%02d", inc.getDay()))%> required>
 				</div>
 			</div>
 
@@ -118,7 +118,7 @@
 			<div class="form-group">
 				<label class="control-label col-xs-2">金額</label>
 				<div class="col-xs-5">
-					<input type="number" name="amount" value=<%=inc.getAmount()%>>
+					<input type="number" name="amount" value=<%=inc.getAmount()%>  min="1" required>
 				</div>
 			</div>
 

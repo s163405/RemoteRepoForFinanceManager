@@ -64,14 +64,14 @@
 			<div class="form-group">
 				<label class="control-label col-xs-2">ユーザ名</label>
 				<div class="col-xs-5">
-					<INPUT TYPE="TEXT" NAME="uid" VALUE="" />
+					<INPUT TYPE="TEXT" NAME="uid" VALUE=""  required  pattern="^[0-9A-Za-z]+$">
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="control-label col-xs-2">パスワード</label>
 				<div class="col-xs-5">
-					<INPUT TYPE="password" NAME="pswd" VALUE="" />
+					<INPUT TYPE="password" NAME="pswd" VALUE=""  required  pattern="^[0-9A-Za-z]+$">
 				</div>
 			</div>
 			<div class="form-group">
@@ -81,7 +81,7 @@
 			</div>
 
 		</FORM>
-		<p>パスワードを忘れたら・・・管理者までご連絡ください。</p>
+		<p>パスワードを忘れた方、新規の方・・・管理者までご連絡ください。</p>
 	</Div>
 </BODY>
 </HTML>

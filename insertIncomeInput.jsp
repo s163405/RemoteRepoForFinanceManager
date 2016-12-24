@@ -16,7 +16,7 @@
 
 <!-- 3. ビューポートの設定-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>新規入力（支出）｜かけいぼ！</title>
+<title>新規入力（収入）｜かけいぼ！</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <script src="http://code.jquery.com/jquery-3.1.1.js"
@@ -93,7 +93,7 @@
 			<div class="form-group">
 				<label class="control-label col-xs-2">日付</label>
 				<div class="col-xs-5">
-					<input id="date" type="date" name="date">
+					<input id="date" type="date" name="date" required>
 				</div>
 			</div>
 
@@ -118,7 +118,7 @@
 			<div class="form-group">
 				<label class="control-label col-xs-2"> 金額</label>
 				<div class="col-xs-5">
-					<input type="number" name="amount">
+					<input type="number" name="amount"  min="1" required>
 				</div>
 			</div>
 			<div class="form-group">

@@ -33,7 +33,6 @@ public class confirmIncomeUpdateServlet extends HttpServlet {
 
 		Income inc = (Income) session.getAttribute("inc");
 		String yearMonthDay = (String) req.getParameter("date");
-		System.out.println(yearMonthDay);
 
 		String[] ymd = yearMonthDay.split("-", 0);// 2016-12-01‚ð2016‚Æ12‚Æ1‚É•ª‚¯‚é
 		int year = Integer.parseInt(ymd[0]);
